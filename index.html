@@ -1,0 +1,1392 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Tarugo · Alquiler de herramientas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&amp;family=DM+Sans:wght@400;500;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1E5BB8}a:hover{color:#0F2F66}
+button{cursor:pointer}
+.desk-only{display:flex}
+.mob-only{display:none}
+.page-main{padding:28px 24px 96px}
+.hero-title{font-size:36px}
+.llave-fab{position:fixed;right:24px;bottom:24px;z-index:40}
+.llave-panel{position:fixed;right:24px;bottom:24px;width:430px;height:min(720px, calc(100vh - 48px));z-index:50;border-radius:22px}
+.detail-img{height:380px}
+.map-box{height:380px}
+.pin-label{display:inline}
+@media (max-width: 760px){
+.map-box{height:300px}
+.pin-label{display:none}
+.pin-on .pin-label{display:inline}
+.desk-only{display:none}
+.mob-only{display:flex}
+.page-main{padding:18px 16px 120px}
+.hero-title{font-size:28px}
+.llave-fab{right:16px;bottom:90px}
+.llave-panel{top:0;left:0;right:0;bottom:0;width:auto;height:auto;border-radius:0}
+.detail-img{height:240px}
+}
+</style>
+<style>#app{min-height:100vh}</style>
+</head>
+<body>
+<template id="tpl"><sc-if value="{{ showLogin }}" hint-placeholder-val="{{ true }}">
+<div style="min-height: 100vh; box-sizing: border-box; padding: 24px 16px; display: flex; align-items: center; justify-content: center; background: #0F2F66; font-family: 'DM Sans', sans-serif; color: #0F2F66">
+<div style="width: 100%; max-width: 980px; display: flex; flex-wrap: wrap; overflow: hidden; background: #FFFFFF; border-radius: 26px; box-shadow: 0 24px 60px rgba(0,0,0,0.25)">
+<div style="flex: 1 1 360px; min-width: 0; box-sizing: border-box; display: flex; flex-direction: column; gap: 22px; padding: 36px 32px; background: #1E5BB8; color: #FFFFFF">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 52px; height: 52px; border-radius: 16px; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><img src="/_blob/8cbf3e0b5370900932c9fe388d072ed1" alt="" style="width: 40px; height: 39px; object-fit: contain"></span>
+<span style="font-family: Montserrat, sans-serif; font-weight: 800; font-size: 26px; letter-spacing: 0.5px">TARUGO</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-family: Montserrat, sans-serif; font-size: 30px; line-height: 1.15; font-weight: 800">Herramientas a pocas cuadras, cuando las necesitás.</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.5; color: #DCE7F8">Alquilá en tu barrio y retirá el mismo día en una ferretería de confianza.</p>
+</div>
+<div class="desk-only" style="flex-direction: column; gap: 14px">
+<span style="display: flex; align-items: center; gap: 12px; font-size: 15px"><span style="flex: none; width: 36px; height: 36px; border-radius: 12px; background: rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7M5 10v10h14V10"></path></svg></span>Retiro en el día en tu ferretería de barrio</span>
+<span style="display: flex; align-items: center; gap: 12px; font-size: 15px"><span style="flex: none; width: 36px; height: 36px; border-radius: 12px; background: rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4zM8 9h8M8 13h8M8 17h5"></path></svg></span>Kits armados para cada tarea</span>
+<span style="display: flex; align-items: center; gap: 12px; font-size: 15px"><span style="flex: none; width: 36px; height: 36px; border-radius: 12px; background: #F28C28; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F2F66" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.6 2.6-2.4-.6-.6-2.4z"></path></svg></span>Llave te dice qué necesitás y cómo hacerlo</span>
+</div>
+</div>
+<div style="flex: 1 1 360px; min-width: 0; box-sizing: border-box; margin: 0; display: flex; flex-direction: column; gap: 16px; padding: 36px 32px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-family: Montserrat, sans-serif; font-size: 28px; font-weight: 800">Ingresá a tu cuenta</h1>
+<p style="margin: 0; font-size: 15px; color: #55627A">Usá tu usuario y tu contraseña de Tarugo.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="login-user" style="font-size: 14px; font-weight: 700">Usuario</label>
+<input id="login-user" type="text" value="{{ loginUser }}" onChange="{{ onLoginUser }}" onInput="{{ onLoginUser }}" onKeyDown="{{ loginKey }}" autocomplete="username" placeholder="Tu nombre de usuario" style="height: 50px; padding: 0 14px; box-sizing: border-box; border: 1.5px solid {{ loginBorder }}; border-radius: 14px; background: #F4F6FA; font-family: 'DM Sans', sans-serif; font-size: 16px; color: #0F2F66">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="login-pass" style="font-size: 14px; font-weight: 700">Contraseña</label>
+<div style="display: flex; align-items: center; gap: 6px; height: 50px; padding: 0 6px 0 14px; box-sizing: border-box; border: 1.5px solid {{ loginBorder }}; border-radius: 14px; background: #F4F6FA">
+<input id="login-pass" type="{{ pwType }}" value="{{ loginPass }}" onChange="{{ onLoginPass }}" onInput="{{ onLoginPass }}" onKeyDown="{{ loginKey }}" autocomplete="current-password" placeholder="Tu contraseña" style="flex: 1; min-width: 0; height: 44px; border: 0; outline: 0; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 16px; color: #0F2F66">
+<button type="button" onClick="{{ togglePw }}" style="height: 40px; padding: 0 12px; border: 0; border-radius: 10px; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; color: #1E5BB8">{{ pwBtn }}</button>
+</div>
+</div>
+<sc-if value="{{ loginError }}" hint-placeholder-val="{{ false }}">
+<div role="alert" style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #FDECEA; border: 1.5px solid #F2B8B2; border-radius: 12px; font-size: 14px; color: #8A1F14"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B3261E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16h.01"></path></svg>Usuario o contraseña incorrectos. Probá de nuevo.</div>
+</sc-if>
+<button type="button" style="align-self: flex-end; border: 0; background: transparent; padding: 4px 0; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; color: #1E5BB8">¿Olvidaste tu contraseña?</button>
+<button type="button" onClick="{{ doLogin }}" style="height: 54px; border: 0; border-radius: 16px; background: #F28C28; color: #0F2F66; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 16px">Ingresar</button>
+<div style="display: flex; align-items: center; gap: 12px; font-size: 13px; color: #55627A"><span style="flex: 1; height: 1.5px; background: #E6EBF2"></span>¿No tenés cuenta?<span style="flex: 1; height: 1.5px; background: #E6EBF2"></span></div>
+<button type="button" style="height: 50px; border: 1.5px solid #0F2F66; border-radius: 16px; background: #FFFFFF; color: #0F2F66; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 15px">Crear una cuenta gratis</button>
+<div style="display: flex; gap: 10px; padding: 12px 14px; background: #EAF2FD; border-radius: 12px; font-size: 13px; line-height: 1.45; color: #3D4B66"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E5BB8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg><span>Cuenta de prueba · usuario <b>Nicolás</b> · contraseña <b>12345678</b></span></div>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ loggedIn }}" hint-placeholder-val="{{ false }}">
+<div style="min-height: 100vh; background: #F4F6FA; font-family: 'DM Sans', sans-serif; color: #0F2F66">
+<header style="background: #FFFFFF; border-bottom: 1.5px solid #E6EBF2">
+<div style="max-width: 1200px; margin: 0 auto; padding: 12px 16px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px">
+<button type="button" onClick="{{ goHome }}" aria-label="Tarugo, ir al inicio" style="display: flex; align-items: center; gap: 10px; border: 0; background: transparent; padding: 0">
+<img src="/_blob/8cbf3e0b5370900932c9fe388d072ed1" alt="" style="width: 40px; height: 39px; object-fit: contain">
+<span style="font-family: Montserrat, sans-serif; font-weight: 800; font-size: 22px; letter-spacing: 0.5px; color: #0F2F66">TARUGO</span>
+</button>
+<div style="order: 3; flex: 1 1 280px; display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 16px; box-sizing: border-box; background: #F4F6FA; border: 1.5px solid #DCE3EE; border-radius: 14px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#55627A" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+<label for="buscar-web" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Buscar</label>
+<input id="buscar-web" type="text" value="{{ query }}" onInput="{{ onSearch }}" onChange="{{ onSearch }}" onKeyDown="{{ searchKey }}" placeholder="Buscá una herramienta o una tarea" autocomplete="off" style="flex: 1; min-width: 0; height: 40px; border: 0; outline: 0; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 15px; color: #0F2F66">
+<sc-if value="{{ hasQuery }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ clearSearch }}" aria-label="Borrar la búsqueda" style="flex: none; width: 34px; height: 34px; border: 0; border-radius: 17px; background: #E6EBF2; color: #0F2F66; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button></sc-if>
+</div>
+<nav aria-label="Principal" class="desk-only" style="order: 4; flex-wrap: wrap; gap: 4px">
+<sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+<button type="button" onClick="{{ n.pick }}" style="{{ n.style }}">{{ n.label }}</button>
+</sc-for>
+</nav>
+<button type="button" onClick="{{ goCuenta }}" style="order: 2; display: flex; align-items: center; gap: 10px; border: 0; background: transparent; padding: 0; text-align: left">
+<span style="width: 42px; height: 42px; border-radius: 21px; background: #0F2F66; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 15px">N</span>
+<span style="display: flex; flex-direction: column"><span style="font-size: 14px; font-weight: 700; color: #0F2F66">Nicolás</span><span style="font-size: 12px; color: #55627A">Plan {{ planName }}</span></span>
+</button>
+</div>
+</header>
+<main class="page-main" style="max-width: 1200px; margin: 0 auto; box-sizing: border-box">
+<sc-if value="{{ isBuscar }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px">
+<h1 style="margin: 0; font-family: Montserrat, sans-serif; font-size: 26px; font-weight: 800">Resultados para “{{ query }}”</h1>
+<button type="button" onClick="{{ clearSearch }}" style="border: 0; background: transparent; padding: 8px 0; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; color: #1E5BB8">Borrar búsqueda</button>
+</div>
+<sc-if value="{{ hasTaskHit }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; padding: 18px 20px; background: #FFFFFF; border: 2px solid #F5C9A0; border-radius: 18px">
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: Montserrat, sans-serif; font-size: 17px; font-weight: 800">Parece que querés {{ taskTitleLow }}</span><span style="font-size: 14px; color: #55627A">Llave te arma la lista de lo que necesitás y el paso a paso.</span></div>
+<button type="button" onClick="{{ askTask }}" style="height: 46px; padding: 0 18px; border: 0; border-radius: 14px; background: #0F2F66; color: #FFFFFF; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 14px">Preguntarle a Llave</button>
+</div>
+</sc-if>
+<span style="font-size: 14px; color: #55627A">{{ resultsTxt }}</span>
+<sc-if value="{{ hasResults }}" hint-placeholder-val="{{ true }}">
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px">
+<sc-for list="{{ results }}" as="t" hint-placeholder-count="3">
+<button type="button" onClick="{{ t.open }}" style="display: flex; flex-direction: column; padding: 0; overflow: hidden; background: #FFFFFF; border: 1.5px solid #E6EBF2; border-radius: 18px; text-align: left; font-family: 'DM Sans', sans-serif; color: #0F2F66">
+<sc-if value="{{ t.hasImg }}" hint-placeholder-val="{{ false }}"><span style="width: 100%; height: 160px; box-sizing: border-box; padding: 10px; display: flex; align-items: center; justify-content: center; background: #FFFFFF; border-bottom: 1.5px solid #EEF1F6"><img src="{{ t.img }}" alt="{{ t.short }}" style="max-width: 100%; max-height: 100%; object-fit: contain"></span></sc-if>
+<sc-if value="{{ t.noImg }}" hint-placeholder-val="{{ true }}"><span style="{{ t.panel }}"><svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="{{ t.stroke }}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ t.d }}"></path></svg></span></sc-if>
+<span style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px 16px; width: 100%; box-sizing: border-box">
+<span style="font-size: 16px; font-weight: 700">{{ t.short }}</span>
+<span style="font-size: 13px; color: #55627A">{{ t.owner }} · {{ t.dist }}</span>
+<span style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 4px">
+<span style="{{ t.badgeStyle }}">{{ t.badge }}</span>
+<span style="font-size: 16px; font-weight: 700">{{ t.priceTxt }} <span style="font-size: 12px; font-weight: 500; color: #55627A">por día</span></span>
+</span>
+</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 22px; background: #FFFFFF; border: 1.5px solid #E6EBF2; border-radius: 18px">
+<span style="font-family: Montserrat, sans-serif; font-size: 18px; font-weight: 800">No encontramos “{{ query }}” cerca tuyo</span>
+<span style="font-size: 14px; color: #55627A">Probá con otra palabra (taladro, escalera, pintar, destapar) o contale a Llave qué querés hacer.</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{ suggestions }}" as="sg" hint-placeholder-count="4"><button type="button" onClick="{{ sg.pick }}" style="height: 40px; padding: 0 14px; border-radius: 20px; border: 1.5px solid #DCE3EE; background: #F4F6FA; color: #0F2F66; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 14px">{{ sg.label }}</button></sc-for>
+</div>
+<button type="button" onClick="{{ askQuery }}" style="height: 46px; padding: 0 18px; border: 0; border-radius: 14px; background: #F28C28; color: #0F2F66; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 14px">Preguntarle a Llave</button>
+</div>
+</sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ isInicioPlain }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<h1 class="hero-title" style="margin: 0; font-family: Montserrat, sans-serif; line-height: 1.1; font-weight: 800">¿Qué querés resolver hoy?</h1>
+<p style="margin: 0; font-size: 17px; color: #55627A">Herramientas a pocas cuadras, listas para retirar en tu ferretería de barrio.</p>
+</div>
+<button type="button" onClick="{{ openMap }}" aria-label="Cambiar tu ubicación, ahora {{ locName }}" style="display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 22px; background: #FFFFFF; border: 1.5px solid #DCE3EE; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; color: #0F2F66"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E8700F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>{{ locName }}<span style="font-weight: 700; color: #1E5BB8">· Cambiar</span></button>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 22px; background: #FFFFFF; border: 2px solid #F5C9A0; border-radius: 20px">
+<div style="display: flex; align-items: center; gap: 14px">
+<span style="flex: none; width: 52px; height: 52px; border-radius: 26px; background: #0F2F66; display: flex; align-items: center; justify-content: center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F28C28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.6 2.6-2.4-.6-.6-2.4z"></path></svg></span>
+<div style="display: flex; flex-direction: column; gap: 3px"><span style="font-family: Montserrat, sans-serif; font-size: 19px; font-weight: 800">¿No sabés qué necesitás? Preguntale a Llave</span><span style="font-size: 14px; color: #55627A">Te dice qué hace falta, dónde conseguirlo cerca, cuánto sale y cómo hacerlo paso a paso.</span></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{ chips }}" as="c" hint-placeholder-count="4"><button type="button" onClick="{{ c.ask }}" style="height: 40px; padding: 0 14px; border-radius: 20px; border: 1.5px solid #DCE3EE; background: #F4F6FA; color: #0F2F66; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 14px">{{ c.label }}</button></sc-for>
+</div>
+</div>
+<section style="display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-family: Montserrat, sans-serif; font-size: 21px; font-weight: 800">Kits por tarea</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px">
+<sc-for list="{{ kits }}" as="k" hint-placeholder-count="4">
+<button type="button" onClick="{{ k.open }}" style="display: flex; align-items: center; gap: 14px; padding: 16px; background: #FFFFFF; border: 1.5px solid #E6EBF2; border-radius: 18px; text-align: left; font-family: 'DM Sans', sans-serif; color: #0F2F66">
+<sc-if value="{{ k.hasImg }}" hint-placeholder-val="{{ false }}"><img src="{{ k.img }}" alt="" style="flex: none; width: 64px; height: 64px; border-radius: 14px; object-fit: contain; background: #FFFFFF; border: 1.5px solid #EEF1F6"></sc-if>
+<sc-if value="{{ k.noImg }}" hint-placeholder-val="{{ true }}"><span style="{{ k.bubble }}"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="{{ k.stroke }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ k.d }}"></path></svg></span></sc-if>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 700">{{ k.name }}</span><span style="font-size: 13px; color: #55627A">{{ k.items }}</span></span>
+</button>
+</sc-for>
+</div>
+</section>
+<section style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px">
+<h2 style="margin: 0; font-family: Montserrat, sans-serif; font-size: 21px; font-weight: 800">Cerca tuyo</h2>
+<button type="button" onClick="{{ openMap }}" style="border: 0; background: transparent; padding: 6px 0; font-family: 'DM Sans', sans-serif; font-size: 14px; color: #55627A">{{ nearTxt }} · <span style="font-weight: 700; color: #1E5BB8">Ver en el mapa</span></button>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px">
+<sc-for list="{{ nearTools }}" as="t" hint-placeholder-count="6">
+<button type="button" onClick="{{ t.open }}" style="display: flex; flex-direction: column; padding: 0; overflow: hidden; background: #FFFFFF; border: 1.5px solid #E6EBF2; border-radius: 18px; text-align: left; font-family: 'DM Sans', sans-serif; color: #0F2F66">
+<sc-if value="{{ t.hasImg }}" hint-placeholder-val="{{ false }}"><span style="width: 100%; height: 160px; box-sizing: border-box; padding: 10px; display: flex; align-items: center; justify-content: center; background: #FFFFFF; border-bottom: 1.5px solid #EEF1F6"><img src="{{ t.img }}" alt="{{ t.short }}" style="max-width: 100%; max-height: 100%; object-fit: contain"></span></sc-if>
+<sc-if value="{{ t.noImg }}" hint-placeholder-val="{{ true }}"><span style="{{ t.panel }}"><svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="{{ t.stroke }}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ t.d }}"></path></svg></span></sc-if>
+<span style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px 16px; width: 100%; box-sizing: border-box">
+<span style="font-size: 16px; font-weight: 700">{{ t.short }}</span>
+<span style="font-size: 13px; color: #55627A">{{ t.owner }} · {{ t.dist }}</span>
+<span style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 4px">
+<span style="{{ t.badgeStyle }}">{{ t.badge }}</span>
+<span style="font-size: 16px; font-weight: 700">{{ t.priceTxt }} <span style="font-size: 12px; font-weight: 500; color: #55627A">por día</span></span>
+</span>
+</span>
+</button>
+</sc-for>
+</div>
+</section>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; background: #0F2F66; border-radius: 20px">
+<div style="display: flex; align-items: center; gap: 16px">
+<span style="flex: none; width: 52px; height: 52px; border-radius: 16px; background: #1E5BB8; display: flex; align-items: center; justify-content: center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: Montserrat, sans-serif; font-size: 18px; font-weight: 800; color: #FFFFFF">Con Plus, la protección viene incluida</span><span style="font-size: 14px; color: #C9D6EC">Cobertura por daños en todos tus alquileres y la mitad de fianza.</span></div>
+</div>
+<button type="button" onClick="{{ goMembresias }}" style="height: 48px; padding: 0 22px; border: 0; border-radius: 14px; background: #F28C28; color: #0F2F66; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 15px">Ver membresías</button>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; background: #FFF1E4; border-radius: 20px">
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: Montserrat, sans-serif; font-size: 18px; font-weight: 800">¿Tenés herramientas que no usás?</span><span style="font-size: 14px; color: #6B3A10">Publicalas y quedate con el 95% de cada alquiler.</span></div>
+<button type="button" onClick="{{ goPublicar }}" style="height: 48px; padding: 0 22px; border: 1.5px solid #0F2F66; border-radius: 14px; background: #FFFFFF; color: #0F2F66; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 15px">Publicar una herramienta</button>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ isDetalle }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<button type="button" onClick="{{ goHome }}" style="align-self: flex-start; display: flex; align-items: center; gap: 6px; border: 0; background: transparent; padding: 8px 0; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; color: #1E5BB8"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg>Volver a explorar</button>
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<div class="detail-img" style="border-radius: 24px; background: {{ tool.detailBg }}; border: 1.5px solid #E6EBF2; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden">
+<sc-if value="{{ tool.hasImg }}" hint-placeholder-val="{{ false }}"><img src="{{ tool.img }}" alt="{{ tool.name }}" style="width: 100%; height: 100%; box-sizing: border-box; padding: 48px 24px 16px; object-fit: contain"></sc-if>
+<sc-if value="{{ tool.noImg }}" hint-placeholder-val="{{ true }}"><svg width="200" height="200" viewBox="0 0 24 24" fill="none" stroke="{{ tool.stroke }}" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Ilustración de la herramienta"><path d="{{ tool.d }}"></path></svg></sc-if>
+<span style="position: absolute; left: 16px; top: 16px; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: #0F2F66; background: #FFFFFF; padding: 7px 12px; border-radius: 16px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1E5BB8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"></path></svg>{{ tool.seal }}</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 16px 18px; background: #FFFFFF; border-radius: 18px; border: 1.5px solid #E6EBF2">
+<h2 style="margin: 0; font-family: Montserrat, sans-serif; font-size: 16px; font-weight: 800">Cómo funciona</h2>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #3D4B66">Reservás y pagás acá. Retirás con un código en el punto de retiro, revisan juntos la herramienta y la devolvés en el mismo lugar. La fianza se libera cuando vuelve en buen estado.</p>
+</div>
+</div>
+<div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<h1 style="margin: 0; font-family: Montserrat, sans-serif; font-size: 26px; line-height: 1.15; font-weight: 800">{{ tool.name }}</h1>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 14px; color: #55627A"><svg width="16" height="16" viewBox="0 0 24 24" fill="#E8700F" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"></path></svg><span style="font-weight: 700; color: #0F2F66">{{ tool.rating }}</span><span>({{ tool.reviews }} reseñas) · {{ tool.use }}</span></div>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 14px; background: #FFFFFF; border-radius: 16px; border: 1.5px solid #E6EBF2">
+<span style="flex: none; width: 46px; height: 46px; border-radius: 23px; background: #0F2F66; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 15px">{{ tool.initials }}</span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 700">{{ tool.owner }}</span><span style="font-size: 13px; color: #55627A">{{ tool.ownerType }} · a {{ tool.dist }} · {{ tool.pickup }}</span></span>
+<span style="{{ tool.badgeStyle }}">{{ tool.badge }}</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 14px; font-weight: 700">¿Por cuántos días?</span>
+<div style="display: flex; gap: 8px">
+<sc-for list="{{ dayOptions }}" as="o" hint-placeholder-count="3"><button type="button" onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.label }}</button></sc-for>
+</div>
+</div>
+<div style="display: flex; gap: 10px">
+<div style="flex: 1; display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; background: #FFFFFF; border-radius: 14px; border: 1.5px solid #E6EBF2"><span style="font-size: 12px; font-weight: 700; color: #55627A">Retiro</span><span style="font-size: 15px; font-weight: 700">{{ retiroTxt }}</span></div>
+<div style="flex: 1; display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; background: #FFFFFF; border-radius: 14px; border: 1.5px solid #E6EBF2"><span style="font-size: 12px; font-weight: 700; color: #55627A">Devolución</span><span style="font-size: 15px; font-weight: 700">{{ devolucionTxt }}</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: baseline; justify-content: space-between"><span style="font-size: 14px; font-weight: 700">Completá tu kit</span><span style="font-size: 12px; color: #55627A">{{ extrasCountTxt }}</span></div>
+<sc-for list="{{ extras }}" as="e" hint-placeholder-count="2">
+<div style="display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 14px; background: #FFFFFF; border-radius: 14px; border: 1.5px solid #E6EBF2">
+<span style="flex: 1; font-size: 14px; font-weight: 500">{{ e.name }}</span>
+<span style="font-size: 14px; font-weight: 700">{{ e.priceTxt }}</span>
+<button type="button" onClick="{{ e.toggle }}" style="{{ e.btnStyle }}">{{ e.label }}</button>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{ protIncluded }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #EAF2FD; border: 1.5px solid #C9DBF5; border-radius: 14px; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E5BB8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6z"></path></svg>Protección incluida en tu plan {{ planName }}</div>
+</sc-if>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 18px; background: #FFFFFF; border-radius: 18px; border: 1.5px solid #E6EBF2">
+<span style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 13px; color: #55627A">Total a pagar</span>
+<span style="font-family: Montserrat, sans-serif; font-size: 24px; font-weight: 800">{{ totalTxt }}</span>
+<span style="font-size: 13px; color: #55627A">{{ daysLabel }} × {{ tool.priceTxt }} = {{ rentalTxt }}</span>
+<sc-if value="{{ hasExtras }}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; color: #55627A">+ consumibles {{ extrasTxt }}</span></sc-if>
+<span style="font-size: 13px; color: #55627A">+ {{ feeProtTxt }}</span>
+</span>
+<button type="button" onClick="{{ goReserva }}" style="height: 54px; padding: 0 34px; border: 0; border-radius: 16px; background: #F28C28; color: #0F2F66; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 16px">Reservar</button>
+</div>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ isReserva }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<button type="button" onClick="{{ goDetalle }}" style="align-self: flex-start; display: flex; align-items: center; gap: 6px; border: 0; background: transparent; padding: 8px 0; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; color: #1E5BB8"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg>Volver al detalle</button>
+<h1 style="margin: 0; font-family: Montserrat, sans-serif; font-size: 28px; font-weight: 800">Confirmá tu alquiler</h1>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+<div style="flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; gap: 14px; padding: 14px; background: #FFFFFF; border-radius: 16px; border: 1.5px solid #E6EBF2">
+<sc-if value="{{ tool.hasImg }}" hint-placeholder-val="{{ false }}"><img src="{{ tool.img }}" alt="" style="flex: none; width: 64px; height: 64px; border-radius: 14px; object-fit: contain; background: #FFFFFF; border: 1.5px solid #EEF1F6"></sc-if>
+<sc-if value="{{ tool.noImg }}" hint-placeholder-val="{{ true }}"><span style="flex: none; width: 60px; height: 60px; border-radius: 14px; background: {{ tool.panelBg }}; display: flex; align-items: center; justify-content: center"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="{{ tool.stroke }}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ tool.d }}"></path></svg></span></sc-if>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 700">{{ tool.short }}</span><span style="font-size: 13px; color: #55627A">{{ tool.owner }} · {{ daysLabel }}</span><span style="font-size: 13px; color: #55627A">Retiro {{ retiroLow }} · Devolución {{ devolucionLow }}</span></span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 18px; background: #FFFFFF; border-radius: 16px; border: 1.5px solid #E6EBF2">
+<h2 style="margin: 0; font-family: Montserrat, sans-serif; font-size: 16px; font-weight: 800">Detalle del pago</h2>
+<div style="display: flex; justify-content: space-between; gap: 12px; font-size: 15px"><span style="color: #55627A">Alquiler ({{ daysLabel }} × {{ tool.priceTxt }})</span><span style="font-weight: 700">{{ rentalTxt }}</span></div>
+<sc-if value="{{ hasExtras }}" hint-placeholder-val="{{ false }}"><div style="display: flex; justify-content: space-between; gap: 12px; font-size: 15px"><span style="color: #55627A">Consumibles (100% para la ferretería)</span><span style="font-weight: 700">{{ extrasTxt }}</span></div></sc-if>
+<div style="display: flex; justify-content: space-between; gap: 12px; font-size: 15px"><span style="color: #55627A">Tarifa de servicio ({{ ratePct }})</span><span style="font-weight: 700">{{ feeTxt }}</span></div>
+<sc-if value="{{ isBasico }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 15px">
+<label for="prot-web" style="display: flex; align-items: center; gap: 10px; color: #55627A; min-height: 32px"><input id="prot-web" type="checkbox" checked="{{ prot }}" onChange="{{ toggleProt }}" style="width: 22px; height: 22px; margin: 0; accent-color: #1E5BB8">Protección por daños (opcional)</label>
+<span style="font-weight: 700">{{ protTxt }}</span>
+</div>
+</sc-if>
+<sc-if value="{{ protIncluded }}" hint-placeholder-val="{{ false }}"><div style="display: flex; justify-content: space-between; gap: 12px; font-size: 15px"><span style="color: #55627A">Protección por daños</span><span style="font-weight: 700; color: #1E5BB8">Incluida en tu plan</span></div></sc-if>
+<div style="height: 1.5px; background: #E6EBF2"></div>
+<div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-size: 16px; font-weight: 700">Total a pagar</span><span style="font-family: Montserrat, sans-serif; font-size: 24px; font-weight: 800">{{ totalTxt }}</span></div>
+</div>
+<div style="display: flex; gap: 12px; padding: 16px; background: #EAF2FD; border: 1.5px solid #C9DBF5; border-radius: 16px">
+<span style="flex: none; width: 42px; height: 42px; border-radius: 12px; background: #1E5BB8; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 15px; font-weight: 700">{{ depositTitle }}</span><span style="font-size: 14px; line-height: 1.45; color: #3D4B66">{{ depositNote }}</span></span>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: #FFFFFF; border-radius: 16px; border: 1.5px solid #E6EBF2">
+<input id="mp-web" type="radio" name="pago-web" checked="" style="width: 22px; height: 22px; margin: 0; accent-color: #1E5BB8">
+<label for="mp-web" style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700">Mercado Pago</span><span style="font-size: 13px; color: #55627A">Saldo o tarjeta guardada</span></label>
+<button type="button" style="border: 0; background: transparent; padding: 10px 4px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; color: #1E5BB8">Cambiar</button>
+</div>
+</div>
+<div style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 20px; background: #FFFFFF; border-radius: 18px; border: 1.5px solid #E6EBF2">
+<span style="font-size: 14px; color: #55627A">Pagás hoy</span>
+<span style="font-family: Montserrat, sans-serif; font-size: 32px; font-weight: 800">{{ totalTxt }}</span>
+<button type="button" onClick="{{ pay }}" style="height: 54px; border: 0; border-radius: 16px; background: #F28C28; color: #0F2F66; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 16px">Pagar {{ totalTxt }}</button>
+<div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1.5px solid #E6EBF2">
+<span style="font-size: 13px; font-weight: 700; color: #55627A">Cómo se reparte</span>
+<div style="display: flex; justify-content: space-between; font-size: 14px"><span>{{ tool.ownerShort }}</span><span style="font-weight: 700">{{ ownerTxt }}</span></div>
+<div style="display: flex; justify-content: space-between; font-size: 14px"><span>Tarugo</span><span style="font-weight: 700">{{ appTxt }}</span></div>
+<div style="display: flex; justify-content: space-between; font-size: 14px"><span>Fondo de protección</span><span style="font-weight: 700">{{ protFundTxt }}</span></div>
+</div>
+</div>
+<sc-if value="{{ isBasico }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 18px; background: #FFF1E4; border-radius: 18px">
+<span style="font-size: 15px; font-weight: 700">Con Plus ahorrarías {{ plusSavingTxt }} en este alquiler</span>
+<span style="font-size: 13px; line-height: 1.45; color: #6B3A10">Protección incluida, tarifa de servicio del 5% y la mitad de fianza.</span>
+<button type="button" onClick="{{ goMembresias }}" style="align-self: flex-start; height: 44px; padding: 0 18px; border: 1.5px solid #0F2F66; border-radius: 12px; background: #FFFFFF; color: #0F2F66; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 14px">Ver membresías</button>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ isListo }}" hint-placeholder-val="{{ false }}">
+<div style="max-width: 620px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+<img src="/_blob/8cbf3e0b5370900932c9fe388d072ed1" alt="Tarugo" style="width: 72px; height: 70px; object-fit: contain">
+<h1 style="margin: 0; font-family: Montserrat, sans-serif; font-size: 28px; font-weight: 800">¡Listo! Tu alquiler está confirmado</h1>
+<p style="margin: 0; font-size: 15px; color: #55627A">Pagaste {{ totalTxt }} · {{ depositShort }}</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; align-items: center; padding: 22px; background: #FFFFFF; border-radius: 20px; border: 1.5px solid #E6EBF2">
+<svg width="160" height="160" viewBox="-1 -1 27 27" aria-hidden="true"><rect x="-1" y="-1" width="27" height="27" fill="#FFFFFF"></rect><path fill="#0F2F66" d="M0 0h7v1h-7zM8 0h2v1h-2zM11 0h1v1h-1zM13 0h2v1h-2zM16 0h1v1h-1zM18 0h7v1h-7zM0 1h1v6h-1zM6 1h1v6h-1zM18 1h1v6h-1zM24 1h1v6h-1zM2 2h3v3h-3zM20 2h3v3h-3zM8 1h4v1h-4zM13 1h2v1h-2zM9 2h1v3h-1zM11 2h1v1h-1zM13 2h4v1h-4zM12 3h1v2h-1zM14 3h3v1h-3zM10 4h1v1h-1zM13 4h1v1h-1zM16 4h1v1h-1zM12 5h1v1h-1zM14 5h2v1h-2zM0 6h7v1h-7zM8 6h3v1h-3zM15 6h1v1h-1zM18 6h7v1h-7zM10 7h1v1h-1zM13 7h1v1h-1zM15 7h1v1h-1zM3 8h2v1h-2zM6 8h5v1h-5zM12 8h3v1h-3zM16 8h2v1h-2zM22 8h3v1h-3zM2 9h5v1h-5zM8 9h4v1h-4zM18 9h1v1h-1zM23 9h2v1h-2zM0 10h13v1h-13zM15 10h5v1h-5zM22 10h3v1h-3zM0 11h3v1h-3zM4 11h2v1h-2zM8 11h1v1h-1zM10 11h1v1h-1zM15 11h3v1h-3zM21 11h2v1h-2zM4 12h1v1h-1zM6 12h5v1h-5zM13 12h1v1h-1zM17 12h5v1h-5zM0 13h1v1h-1zM3 13h1v1h-1zM8 13h2v1h-2zM11 13h1v1h-1zM14 13h2v1h-2zM18 13h3v1h-3zM23 13h1v1h-1zM2 14h1v1h-1zM4 14h2v1h-2zM10 14h1v1h-1zM13 14h4v1h-4zM18 14h3v1h-3zM22 14h2v1h-2zM1 15h1v1h-1zM6 15h4v1h-4zM11 15h2v1h-2zM15 15h1v1h-1zM19 15h1v1h-1zM21 15h2v1h-2zM3 16h1v1h-1zM8 16h1v1h-1zM10 16h1v1h-1zM15 16h1v1h-1zM19 16h6v1h-6zM11 17h1v1h-1zM14 17h1v1h-1zM17 17h1v1h-1zM19 17h2v1h-2zM23 17h2v1h-2zM0 18h7v1h-7zM9 18h3v1h-3zM13 18h1v1h-1zM15 18h3v1h-3zM20 18h1v1h-1zM24 18h1v1h-1zM8 19h2v1h-2zM11 19h3v1h-3zM16 19h2v1h-2zM21 19h2v1h-2zM8 20h1v1h-1zM12 20h1v1h-1zM14 20h1v1h-1zM16 20h2v1h-2zM20 20h2v1h-2zM23 20h2v1h-2zM8 21h5v1h-5zM14 21h1v1h-1zM16 21h5v1h-5zM23 21h2v1h-2zM9 22h1v1h-1zM11 22h2v1h-2zM14 22h1v1h-1zM18 22h1v1h-1zM22 22h3v1h-3zM8 23h2v1h-2zM11 23h3v1h-3zM17 23h7v1h-7zM10 24h1v1h-1zM12 24h5v1h-5zM18 24h1v1h-1zM20 24h4v1h-4zM0 19h1v5h-1zM6 19h1v5h-1zM2 20h3v3h-3zM0 24h7v1h-7z"></path></svg>
+<div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-family: Montserrat, sans-serif; font-size: 22px; font-weight: 800; letter-spacing: 3px">TG-4821</span>
+<span style="font-size: 14px; color: #55627A">Mostrá este código en el punto de retiro</span>
+<span style="font-size: 15px; font-weight: 700">{{ tool.owner }} · a {{ tool.dist }}</span>
+<span style="font-size: 14px; color: #3D4B66">Retiro: {{ retiroTxt }}</span>
+<span style="font-size: 14px; color: #3D4B66">Devolución: {{ devolucionTxt }}</span>
+</div>
+</div>
+<div style="display: flex; gap: 10px">
+<div style="flex: 1; display: flex; flex-direction: column; gap: 4px; padding: 12px; background: #E8F0FB; border-radius: 14px"><span style="font-family: Montserrat, sans-serif; font-weight: 800; font-size: 15px; color: #1E5BB8">1</span><span style="font-size: 13px; line-height: 1.35">Mostrás el código</span></div>
+<div style="flex: 1; display: flex; flex-direction: column; gap: 4px; padding: 12px; background: #E8F0FB; border-radius: 14px"><span style="font-family: Montserrat, sans-serif; font-weight: 800; font-size: 15px; color: #1E5BB8">2</span><span style="font-size: 13px; line-height: 1.35">Revisan juntos la herramienta</span></div>
+<div style="flex: 1; display: flex; flex-direction: column; gap: 4px; padding: 12px; background: #FFF1E4; border-radius: 14px"><span style="font-family: Montserrat, sans-serif; font-weight: 800; font-size: 15px; color: #A84A00">3</span><span style="font-size: 13px; line-height: 1.35">Te la llevás</span></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<button type="button" onClick="{{ goAlquileres }}" style="flex: 1 1 200px; height: 52px; border: 1.5px solid #1E5BB8; border-radius: 16px; background: #FFFFFF; color: #1E5BB8; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 15px">Ver mis alquileres</button>
+<button type="button" onClick="{{ goHome }}" style="flex: 1 1 200px; height: 52px; border: 0; border-radius: 16px; background: #F28C28; color: #0F2F66; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 15px">Volver al inicio</button>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ isPerfil }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<aside style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; gap: 12px; padding: 16px; background: #FFFFFF; border-radius: 18px; border: 1.5px solid #E6EBF2">
+<span style="flex: none; width: 52px; height: 52px; border-radius: 26px; background: #0F2F66; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 18px">N</span>
+<span style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 17px; font-weight: 700">Nicolás</span><span style="font-size: 13px; color: #55627A">Identidad verificada · Plan {{ planName }}</span></span>
+</div>
+<nav aria-label="Mi cuenta" style="display: flex; flex-wrap: wrap; gap: 4px; padding: 8px; background: #FFFFFF; border-radius: 18px; border: 1.5px solid #E6EBF2">
+<sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="4"><button type="button" onClick="{{ tb.pick }}" style="{{ tb.style }}">{{ tb.label }}</button></sc-for>
+</nav>
+</aside>
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<sc-if value="{{ tabCuenta }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<h1 style="margin: 0; font-family: Montserrat, sans-serif; font-size: 26px; font-weight: 800">Mi cuenta</h1>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 16px; background: #FFFFFF; border-radius: 16px; border: 1.5px solid #E6EBF2"><span style="font-size: 13px; color: #55627A">Alquileres hechos</span><span style="font-family: Montserrat, sans-serif; font-size: 26px; font-weight: 800">{{ rentalCount }}</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 16px; background: #FFFFFF; border-radius: 16px; border: 1.5px solid #E6EBF2"><span style="font-size: 13px; color: #55627A">Tu reputación</span><span style="font-family: Montserrat, sans-serif; font-size: 26px; font-weight: 800">4,9</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 16px; background: #FFFFFF; border-radius: 16px; border: 1.5px solid #E6EBF2"><span style="font-size: 13px; color: #55627A">Plan actual</span><span style="font-family: Montserrat, sans-serif; font-size: 26px; font-weight: 800">{{ planName }}</span></div>
+</div>
+<div style="display: flex; flex-direction: column; padding: 4px 18px; background: #FFFFFF; border-radius: 16px; border: 1.5px solid #E6EBF2">
+<div style="display: flex; justify-content: space-between; gap: 12px; padding: 14px 0; border-bottom: 1.5px solid #EEF1F6; font-size: 15px"><span style="color: #55627A">Usuario</span><span style="font-weight: 700">Nicolás</span></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1.5px solid #EEF1F6; font-size: 15px"><span style="color: #55627A">Barrio</span><button type="button" onClick="{{ openMap }}" style="min-height: 40px; border: 0; background: transparent; padding: 0; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; color: #0F2F66">{{ locName }} · <span style="color: #1E5BB8">Cambiar</span></button></div>
+<div style="display: flex; justify-content: space-between; gap: 12px; padding: 14px 0; border-bottom: 1.5px solid #EEF1F6; font-size: 15px"><span style="color: #55627A">Verificación</span><span style="font-weight: 700">DNI y prueba de vida</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px; padding: 14px 0; font-size: 15px"><span style="color: #55627A">Medio de pago</span><span style="font-weight: 700">Mercado Pago</span></div>
+</div>
+<button type="button" onClick="{{ logout }}" style="align-self: flex-start; height: 46px; padding: 0 20px; border: 1.5px solid #DCE3EE; border-radius: 14px; background: #FFFFFF; color: #B3261E; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 15px">Cerrar sesión</button>
+</div>
+</sc-if>
+<sc-if value="{{ tabAlquileres }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<h1 style="margin: 0; font-family: Montserrat, sans-serif; font-size: 26px; font-weight: 800">Mis alquileres</h1>
+<sc-for list="{{ rentals }}" as="r" hint-placeholder-count="2">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px; padding: 14px 16px; background: #FFFFFF; border-radius: 16px; border: 1.5px solid #E6EBF2">
+<sc-if value="{{ r.hasImg }}" hint-placeholder-val="{{ false }}"><img src="{{ r.img }}" alt="" style="flex: none; width: 56px; height: 56px; border-radius: 14px; object-fit: contain; background: #FFFFFF; border: 1.5px solid #EEF1F6"></sc-if>
+<sc-if value="{{ r.noImg }}" hint-placeholder-val="{{ true }}"><span style="flex: none; width: 52px; height: 52px; border-radius: 14px; background: #E8F0FB; display: flex; align-items: center; justify-content: center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1E5BB8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ r.d }}"></path></svg></span></sc-if>
+<span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 700">{{ r.name }}</span><span style="font-size: 13px; color: #55627A">{{ r.owner }} · {{ r.when }}</span></span>
+<span style="{{ r.pillStyle }}">{{ r.status }}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ tabMembresias }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-family: Montserrat, sans-serif; font-size: 26px; font-weight: 800">Membresías</h1>
+<p style="margin: 0; font-size: 15px; color: #55627A">El plan Básico es gratis para siempre. Si alquilás seguido, un plan pago te da más protección y menos fianza.</p>
+</div>
+<sc-if value="{{ hasPlanMsg }}" hint-placeholder-val="{{ false }}">
+<div role="status" style="display: flex; align-items: center; gap: 10px; padding: 14px 16px; background: #E6F4EA; border: 1.5px solid #B7DFC2; border-radius: 14px; font-size: 15px; font-weight: 700; color: #1D5E33"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1D7A3E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"></path></svg>{{ planMsg }}</div>
+</sc-if>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px">
+<sc-for list="{{ plans }}" as="p" hint-placeholder-count="3">
+<div style="{{ p.cardStyle }}">
+<sc-if value="{{ p.highlight }}" hint-placeholder-val="{{ false }}"><span style="align-self: flex-start; font-size: 12px; font-weight: 700; color: #6B3A10; background: #FFE2C4; padding: 4px 10px; border-radius: 10px">El más elegido</span></sc-if>
+<span style="font-family: Montserrat, sans-serif; font-size: 22px; font-weight: 800">{{ p.name }}</span>
+<span style="font-size: 14px; color: #55627A">{{ p.desc }}</span>
+<span style="display: flex; align-items: baseline; gap: 4px"><span style="font-family: Montserrat, sans-serif; font-size: 30px; font-weight: 800">{{ p.price }}</span><span style="font-size: 14px; color: #55627A">{{ p.per }}</span></span>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 6px 0">
+<sc-for list="{{ p.features }}" as="f" hint-placeholder-count="4">
+<span style="display: flex; align-items: flex-start; gap: 8px; font-size: 14px; line-height: 1.4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E5BB8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px"><path d="m5 12 5 5L20 7"></path></svg>{{ f.t }}</span>
+</sc-for>
+</div>
+<div style="flex: 1"></div>
+<button type="button" onClick="{{ p.choose }}" style="{{ p.btnStyle }}">{{ p.btnLabel }}</button>
+</div>
+</sc-for>
+</div>
+<p style="margin: 0; font-size: 13px; color: #55627A">Podés cambiar o cancelar tu plan cuando quieras. Precios y coberturas de ejemplo.</p>
+</div>
+</sc-if>
+<sc-if value="{{ tabHerramientas }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 6px"><h1 style="margin: 0; font-family: Montserrat, sans-serif; font-size: 26px; font-weight: 800">Mis herramientas</h1><p style="margin: 0; font-size: 15px; color: #55627A">Lo que publicaste para alquilar. Te quedás con el 95% de cada alquiler.</p></div>
+<button type="button" onClick="{{ goPublicar }}" style="height: 46px; padding: 0 20px; border: 0; border-radius: 14px; background: #F28C28; color: #0F2F66; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 14px">Publicar una herramienta</button>
+</div>
+<sc-if value="{{ hasPubMsg }}" hint-placeholder-val="{{ false }}">
+<div role="status" style="display: flex; align-items: center; gap: 10px; padding: 14px 16px; background: #E6F4EA; border: 1.5px solid #B7DFC2; border-radius: 14px; font-size: 15px; font-weight: 700; color: #1D5E33"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1D7A3E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"></path></svg>{{ pubMsg }}</div>
+</sc-if>
+<sc-for list="{{ myTools }}" as="mt2" hint-placeholder-count="2">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px; padding: 14px 16px; background: #FFFFFF; border-radius: 16px; border: 1.5px solid #E6EBF2">
+<span style="{{ mt2.bubble }}"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="{{ mt2.stroke }}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ mt2.d }}"></path></svg></span>
+<span style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 3px"><span style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px"><span style="font-size: 16px; font-weight: 700">{{ mt2.name }}</span><span style="{{ mt2.pillStyle }}">{{ mt2.status }}</span></span><span style="font-size: 13px; color: #55627A">{{ mt2.info }}</span></span>
+<span style="display: flex; flex-direction: column; align-items: flex-end"><span style="font-size: 12px; color: #55627A">Ganaste</span><span style="font-size: 16px; font-weight: 700">{{ mt2.earned }}</span></span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ isPublicar }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<button type="button" onClick="{{ goHerramientas }}" style="align-self: flex-start; display: flex; align-items: center; gap: 6px; border: 0; background: transparent; padding: 8px 0; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; color: #1E5BB8"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg>Volver a mis herramientas</button>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-family: Montserrat, sans-serif; font-size: 28px; font-weight: 800">Publicá una herramienta</h1>
+<p style="margin: 0; font-size: 15px; color: #55627A">Te quedás con el 95% de cada alquiler. Si la dejás en una ferretería cercana, ellos la revisan y la entregan por vos.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+<div style="flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 18px; padding: 20px; background: #FFFFFF; border-radius: 18px; border: 1.5px solid #E6EBF2">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 14px; font-weight: 700">¿Qué herramienta es?</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{ pubCats }}" as="pcat" hint-placeholder-count="6"><button type="button" onClick="{{ pcat.pick }}" aria-pressed="{{ pcat.on }}" style="{{ pcat.style }}">{{ pcat.label }}</button></sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="pub-name" style="font-size: 14px; font-weight: 700">Nombre y modelo</label>
+<input id="pub-name" type="text" value="{{ pubName }}" onInput="{{ onPubName }}" onChange="{{ onPubName }}" placeholder="Ej.: Taladro percutor Bosch 13 mm" autocomplete="off" style="height: 48px; padding: 0 14px; box-sizing: border-box; border: 1.5px solid {{ pubNameBorder }}; border-radius: 12px; background: #F4F6FA; font-family: 'DM Sans', sans-serif; font-size: 15px; color: #0F2F66">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 14px; font-weight: 700">Estado</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{ pubConds }}" as="pc2" hint-placeholder-count="3"><button type="button" onClick="{{ pc2.pick }}" aria-pressed="{{ pc2.on }}" style="{{ pc2.style }}">{{ pc2.label }}</button></sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="pub-price" style="font-size: 14px; font-weight: 700">Precio por día</label>
+<div style="display: flex; align-items: center; gap: 8px; height: 48px; padding: 0 14px; box-sizing: border-box; border: 1.5px solid {{ pubPriceBorder }}; border-radius: 12px; background: #F4F6FA; max-width: 260px">
+<span style="font-size: 16px; font-weight: 700; color: #55627A">$</span>
+<input id="pub-price" type="text" inputmode="numeric" value="{{ pubPrice }}" onInput="{{ onPubPrice }}" onChange="{{ onPubPrice }}" placeholder="5000" autocomplete="off" style="flex: 1; min-width: 0; height: 44px; border: 0; outline: 0; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 16px; color: #0F2F66">
+</div>
+<span style="font-size: 13px; color: #55627A">{{ pubSuggest }}</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 14px; font-weight: 700">¿Dónde la retiran?</span>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{ pubPickups }}" as="pp" hint-placeholder-count="2"><button type="button" onClick="{{ pp.pick }}" aria-pressed="{{ pp.on }}" style="{{ pp.style }}"><span style="font-size: 15px; font-weight: 700">{{ pp.label }}</span><span style="font-size: 13px; font-weight: 500; color: #55627A">{{ pp.note }}</span></button></sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 14px; font-weight: 700">Fotos</span>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+<sc-for list="{{ pubPhotos }}" as="ph" hint-placeholder-count="0"><span style="width: 72px; height: 72px; border-radius: 12px; background: #E8F0FB; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #1E5BB8">Foto {{ ph.n }}</span></sc-for>
+<button type="button" onClick="{{ addPhoto }}" style="width: 72px; height: 72px; border-radius: 12px; border: 1.5px dashed #B9C3D3; background: #FFFFFF; color: #1E5BB8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Agregar</button>
+</div>
+<span style="font-size: 13px; color: #55627A">Simulación: en la app real abre la cámara o la galería.</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="pub-desc" style="font-size: 14px; font-weight: 700">Descripción (opcional)</label>
+<textarea id="pub-desc" value="{{ pubDesc }}" onInput="{{ onPubDesc }}" onChange="{{ onPubDesc }}" rows="3" placeholder="Qué incluye, para qué sirve, si tiene algún detalle" style="padding: 12px 14px; box-sizing: border-box; border: 1.5px solid #DCE3EE; border-radius: 12px; background: #F4F6FA; font-family: 'DM Sans', sans-serif; font-size: 15px; color: #0F2F66; resize: vertical"></textarea>
+</div>
+<sc-if value="{{ pubError }}" hint-placeholder-val="{{ false }}">
+<div role="alert" style="padding: 12px 14px; background: #FDECEA; border: 1.5px solid #F2B8B2; border-radius: 12px; font-size: 14px; color: #8A1F14">{{ pubErrorTxt }}</div>
+</sc-if>
+</div>
+<div style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<span style="font-size: 13px; font-weight: 700; color: #55627A; text-transform: uppercase; letter-spacing: 0.6px">Así la van a ver</span>
+<div style="display: flex; flex-direction: column; overflow: hidden; background: #FFFFFF; border: 1.5px solid #E6EBF2; border-radius: 18px">
+<span style="{{ pubPreview.panel }}"><svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="{{ pubPreview.stroke }}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ pubPreview.d }}"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px 16px">
+<span style="font-size: 16px; font-weight: 700">{{ pubPreview.name }}</span>
+<span style="font-size: 13px; color: #55627A">{{ pubPreview.where }}</span>
+<span style="font-size: 16px; font-weight: 700">{{ pubPreview.price }} <span style="font-size: 12px; font-weight: 500; color: #55627A">por día</span></span>
+</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 16px; background: #FFF1E4; border-radius: 16px">
+<span style="font-size: 14px; color: #6B3A10">Por cada día de alquiler cobrás</span>
+<span style="font-family: Montserrat, sans-serif; font-size: 26px; font-weight: 800">{{ pubEarn }}</span>
+<span style="font-size: 13px; line-height: 1.4; color: #6B3A10">Tarugo se queda con el 5%. La fianza ({{ pubDeposit }}) la cobra la app y te cubre si hay daños.</span>
+</div>
+<button type="button" onClick="{{ doPublish }}" style="height: 54px; border: 0; border-radius: 16px; background: #F28C28; color: #0F2F66; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 16px">Publicar herramienta</button>
+</div>
+</div>
+</div>
+</sc-if>
+</main>
+<footer style="border-top: 1.5px solid #E6EBF2; background: #FFFFFF">
+<div style="max-width: 1200px; margin: 0 auto; padding: 18px 16px 100px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 13px; color: #55627A"><span>Tarugo · Alquiler de herramientas en tu barrio</span><span>Prototipo: precios, nombres y reseñas de ejemplo</span></div>
+</footer>
+<sc-if value="{{ showFab }}" hint-placeholder-val="{{ true }}">
+<button type="button" class="llave-fab" onClick="{{ openLlave }}" style="display: flex; align-items: center; gap: 10px; height: 56px; padding: 0 20px 0 8px; border: 0; border-radius: 28px; background: #0F2F66; color: #FFFFFF; box-shadow: 0 10px 28px rgba(15,47,102,0.35); font-family: Montserrat, sans-serif; font-weight: 800; font-size: 15px">
+<span style="width: 40px; height: 40px; border-radius: 20px; background: #F28C28; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F2F66" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.6 2.6-2.4-.6-.6-2.4z"></path></svg></span>
+Preguntale a Llave
+</button>
+</sc-if>
+<sc-if value="{{ llaveOpen }}" hint-placeholder-val="{{ false }}">
+<section class="llave-panel" aria-label="Llave, asistente de Tarugo" style="display: flex; flex-direction: column; overflow: hidden; background: #FFFFFF; border: 1.5px solid #E6EBF2; box-shadow: 0 18px 48px rgba(15,47,102,0.28)">
+<div style="flex: none; display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: #0F2F66">
+<span style="flex: none; width: 42px; height: 42px; border-radius: 21px; background: #F28C28; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F2F66" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.6 2.6-2.4-.6-.6-2.4z"></path></svg></span>
+<span style="flex: 1; display: flex; flex-direction: column"><span style="font-family: Montserrat, sans-serif; font-size: 17px; font-weight: 800; color: #FFFFFF">Llave</span><span style="font-size: 12px; color: #C9D6EC">Asistente con IA de Tarugo</span></span>
+<button type="button" onClick="{{ closeLlave }}" aria-label="Cerrar Llave" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: rgba(255,255,255,0.12); color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+</div>
+<div ref="{{ bodyRef }}" style="flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding: 16px; background: #F4F6FA">
+<div style="align-self: flex-start; max-width: 88%; padding: 12px 14px; background: #FFFFFF; border: 1.5px solid #E6EBF2; border-radius: 4px 16px 16px 16px; font-size: 14px; line-height: 1.5">Hola, soy Llave. Contame qué querés arreglar y te digo qué necesitás, dónde conseguirlo cerca, cuánto sale y cómo hacerlo paso a paso.</div>
+<sc-for list="{{ messages }}" as="m" hint-placeholder-count="0">
+<sc-if value="{{ m.isUser }}" hint-placeholder-val="{{ false }}">
+<div style="align-self: flex-end; max-width: 85%; padding: 10px 14px; background: #1E5BB8; color: #FFFFFF; border-radius: 16px 4px 16px 16px; font-size: 14px; line-height: 1.45">{{ m.text }}</div>
+</sc-if>
+<sc-if value="{{ m.isText }}" hint-placeholder-val="{{ false }}">
+<div style="align-self: flex-start; max-width: 88%; padding: 12px 14px; background: #FFFFFF; border: 1.5px solid #E6EBF2; border-radius: 4px 16px 16px 16px; font-size: 14px; line-height: 1.5">{{ m.text }}</div>
+</sc-if>
+<sc-if value="{{ m.isPlan }}" hint-placeholder-val="{{ false }}">
+<div style="align-self: stretch; display: flex; flex-direction: column; gap: 12px; padding: 14px; background: #FFFFFF; border: 1.5px solid #E6EBF2; border-radius: 4px 16px 16px 16px">
+<span style="font-family: Montserrat, sans-serif; font-size: 16px; font-weight: 800">{{ m.title }}</span>
+<span style="font-size: 14px; line-height: 1.5; color: #3D4B66">{{ m.intro }}</span>
+<span style="font-size: 12px; font-weight: 700; color: #55627A; text-transform: uppercase; letter-spacing: 0.6px">Lo que necesitás · tocá el círculo si ya lo tenés</span>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<sc-for list="{{ m.items }}" as="it" hint-placeholder-count="4">
+<div style="{{ it.rowStyle }}">
+<button type="button" onClick="{{ it.toggle }}" aria-pressed="{{ it.owned }}" aria-label="{{ it.toggleLabel }}" style="{{ it.checkStyle }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"></path></svg></button>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+<span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px"><span style="{{ it.tagStyle }}">{{ it.tag }}</span><span style="{{ it.nameStyle }}">{{ it.name }}</span></span>
+<span style="font-size: 12px; color: #55627A">{{ it.where }}</span>
+</span>
+<span style="flex: none; font-size: 14px; font-weight: 700">{{ it.priceTxt }}</span>
+</div>
+</sc-for>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: baseline; padding: 10px 12px; background: #F4F6FA; border-radius: 12px"><span style="font-size: 13px; color: #3D4B66">Te falta conseguir</span><span style="font-family: Montserrat, sans-serif; font-size: 18px; font-weight: 800">{{ m.totalTxt }}</span></div>
+<span style="font-size: 12px; font-weight: 700; color: #55627A; text-transform: uppercase; letter-spacing: 0.6px">Paso a paso</span>
+<ol style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; line-height: 1.45; color: #0F2F66">
+<sc-for list="{{ m.steps }}" as="st" hint-placeholder-count="5"><li>{{ st.t }}</li></sc-for>
+</ol>
+<div style="display: flex; gap: 8px; padding: 10px 12px; background: #FFF1E4; border-radius: 12px; font-size: 13px; line-height: 1.45; color: #6B3A10"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A84A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3z"></path></svg>{{ m.tip }}</div>
+<button type="button" onClick="{{ m.cta }}" style="min-height: 48px; padding: 8px 16px; border: 0; border-radius: 14px; background: #F28C28; color: #0F2F66; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 14px">{{ m.ctaLabel }}</button>
+</div>
+</sc-if>
+</sc-for>
+<sc-if value="{{ typing }}" hint-placeholder-val="{{ false }}">
+<div style="align-self: flex-start; padding: 10px 14px; background: #FFFFFF; border: 1.5px solid #E6EBF2; border-radius: 4px 16px 16px 16px; font-size: 13px; color: #55627A">Llave está escribiendo…</div>
+</sc-if>
+</div>
+<div style="flex: none; display: flex; flex-direction: column; gap: 10px; padding: 12px 14px 14px; border-top: 1.5px solid #E6EBF2; background: #FFFFFF">
+<div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px">
+<sc-for list="{{ chips }}" as="c" hint-placeholder-count="4"><button type="button" onClick="{{ c.ask }}" style="flex: none; height: 36px; padding: 0 12px; border-radius: 18px; border: 1.5px solid #DCE3EE; background: #F4F6FA; color: #0F2F66; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 13px">{{ c.label }}</button></sc-for>
+</div>
+<div style="display: flex; gap: 8px; margin: 0">
+<label for="llave-input" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Escribile a Llave</label>
+<input id="llave-input" type="text" value="{{ draft }}" onChange="{{ onDraft }}" onKeyDown="{{ draftKey }}" placeholder="Ej.: quiero pintar mi cuarto" autocomplete="off" style="flex: 1; min-width: 0; height: 46px; padding: 0 14px; box-sizing: border-box; border: 1.5px solid #DCE3EE; border-radius: 14px; background: #F4F6FA; font-family: 'DM Sans', sans-serif; font-size: 15px; color: #0F2F66">
+<button type="button" onClick="{{ send }}" aria-label="Enviar" style="flex: none; width: 46px; height: 46px; border: 0; border-radius: 14px; background: #1E5BB8; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12 20 4l-4 16-4-7z"></path><path d="m12 13 8-9"></path></svg></button>
+</div>
+<span style="font-size: 11px; color: #55627A; text-align: center">Simulación: Llave responde con ejemplos y precios ficticios.</span>
+</div>
+</section>
+</sc-if>
+<sc-if value="{{ mapOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 60; box-sizing: border-box; padding: 16px; display: flex; align-items: center; justify-content: center; background: rgba(15,47,102,0.5)">
+<section role="dialog" aria-modal="true" aria-label="Elegí tu ubicación" style="width: 100%; max-width: 760px; max-height: calc(100vh - 32px); overflow-y: auto; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; padding: 20px; background: #FFFFFF; border-radius: 22px">
+<div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 4px"><h2 style="margin: 0; font-family: Montserrat, sans-serif; font-size: 22px; font-weight: 800">¿Dónde estás?</h2><span style="font-size: 14px; color: #55627A">Tocá tu barrio en el mapa. Te mostramos las herramientas más cerca.</span></div>
+<button type="button" onClick="{{ closeMap }}" aria-label="Cerrar el mapa" style="flex: none; width: 44px; height: 44px; border: 0; border-radius: 22px; background: #F4F6FA; color: #0F2F66; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+</div>
+<div class="map-box" style="position: relative; overflow: hidden; border-radius: 18px; border: 1.5px solid #DCE3EE; background: #EEF1E8">
+<svg width="100%" height="100%" viewBox="0 0 600 380" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; top: 0; left: 0">
+<defs><pattern id="calles" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M22 0H0V22" fill="none" stroke="#FFFFFF" stroke-width="2"></path></pattern></defs>
+<rect width="600" height="380" fill="#EEF1E8"></rect>
+<rect width="600" height="380" fill="url(#calles)"></rect>
+<ellipse cx="385" cy="118" rx="44" ry="26" fill="#CFE5C4"></ellipse>
+<ellipse cx="228" cy="226" rx="22" ry="15" fill="#CFE5C4"></ellipse>
+<ellipse cx="300" cy="40" rx="26" ry="14" fill="#CFE5C4"></ellipse>
+<path d="M40 310L470 110" stroke="#FFFFFF" stroke-width="7" fill="none"></path>
+<path d="M110 20L440 340" stroke="#FFFFFF" stroke-width="7" fill="none"></path>
+<path d="M0 205H470" stroke="#FFFFFF" stroke-width="6" fill="none"></path>
+<path d="M300 0V380" stroke="#FFFFFF" stroke-width="5" fill="none"></path>
+<path d="M430 0H600V380H560C540 330 520 300 505 260C490 220 470 180 455 120C445 80 438 40 430 0Z" fill="#CFE3F5"></path>
+<path d="M0 362C120 350 260 372 420 354L470 380H0Z" fill="#CFE3F5"></path>
+<text x="535" y="190" fill="#4E6F96" font-family="DM Sans, sans-serif" font-size="13" font-weight="700" text-anchor="middle">Río de la Plata</text>
+</svg>
+<sc-for list="{{ barrios }}" as="b" hint-placeholder-count="10">
+<button type="button" class="{{ b.cls }}" onClick="{{ b.pick }}" aria-label="{{ b.aria }}" aria-pressed="{{ b.on }}" style="{{ b.style }}"><span style="{{ b.dot }}"></span><span class="pin-label">{{ b.label }}</span></button>
+</sc-for>
+<span style="position: absolute; right: 10px; bottom: 10px; font-size: 11px; color: #55627A; background: rgba(255,255,255,0.85); padding: 3px 8px; border-radius: 8px">Mapa ilustrativo de CABA</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{ barrios }}" as="b" hint-placeholder-count="10"><button type="button" onClick="{{ b.pick }}" aria-pressed="{{ b.on }}" style="{{ b.chip }}">{{ b.name }}</button></sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+<button type="button" onClick="{{ locateMe }}" style="display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; border: 1.5px solid #1E5BB8; border-radius: 14px; background: #FFFFFF; color: #1E5BB8; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path></svg>{{ locateLabel }}</button>
+<span style="font-size: 13px; color: #55627A">{{ locateNote }}</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 14px; font-weight: 700">Mostrame herramientas a menos de</span>
+<div style="display: flex; gap: 8px">
+<sc-for list="{{ radiusOptions }}" as="ro" hint-placeholder-count="3"><button type="button" onClick="{{ ro.pick }}" aria-pressed="{{ ro.on }}" style="{{ ro.style }}">{{ ro.label }}</button></sc-for>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 14px; border-top: 1.5px solid #E6EBF2">
+<span style="font-size: 15px">Vas a ver herramientas cerca de <b>{{ mapPickName }}</b></span>
+<button type="button" onClick="{{ confirmMap }}" style="height: 50px; padding: 0 24px; border: 0; border-radius: 14px; background: #F28C28; color: #0F2F66; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 15px">Confirmar ubicación</button>
+</div>
+</section>
+</div>
+</sc-if>
+<sc-if value="{{ planModal }}" hint-placeholder-val="{{ false }}">
+<div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 60; box-sizing: border-box; padding: 16px; display: flex; align-items: center; justify-content: center; background: rgba(15,47,102,0.5)">
+<section role="dialog" aria-modal="true" aria-label="{{ pc.title }}" style="width: 100%; max-width: 520px; max-height: calc(100vh - 32px); overflow-y: auto; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px; padding: 24px; background: #FFFFFF; border-radius: 22px">
+<h2 style="margin: 0; font-family: Montserrat, sans-serif; font-size: 22px; font-weight: 800">{{ pc.title }}</h2>
+<div style="display: flex; align-items: center; gap: 10px">
+<div style="flex: 1; display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; background: #F4F6FA; border-radius: 14px"><span style="font-size: 12px; font-weight: 700; color: #55627A">Plan actual</span><span style="font-size: 16px; font-weight: 700">{{ pc.from }}</span><span style="font-size: 13px; color: #55627A">{{ pc.fromPrice }}</span></div>
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#55627A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+<div style="flex: 1; display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; background: #FFF1E4; border: 1.5px solid #F5C9A0; border-radius: 14px"><span style="font-size: 12px; font-weight: 700; color: #6B3A10">Plan nuevo</span><span style="font-size: 16px; font-weight: 700">{{ pc.to }}</span><span style="font-size: 13px; color: #6B3A10">{{ pc.toPrice }}</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 14px; font-weight: 700">{{ pc.listTitle }}</span>
+<sc-for list="{{ pc.items }}" as="pi" hint-placeholder-count="4"><span style="display: flex; align-items: flex-start; gap: 8px; font-size: 14px; line-height: 1.4"><span style="{{ pi.markStyle }}">{{ pi.mark }}</span>{{ pi.t }}</span></sc-for>
+</div>
+<div style="padding: 12px 14px; background: #EAF2FD; border-radius: 12px; font-size: 14px; line-height: 1.45; color: #3D4B66">{{ pc.note }}</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<button type="button" onClick="{{ cancelPlan }}" style="flex: 1 1 140px; height: 50px; border: 1.5px solid #DCE3EE; border-radius: 14px; background: #FFFFFF; color: #0F2F66; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 15px">Cancelar</button>
+<button type="button" onClick="{{ confirmPlan }}" style="flex: 2 1 200px; height: 50px; border: 0; border-radius: 14px; background: {{ pc.ctaBg }}; color: {{ pc.ctaColor }}; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 15px">{{ pc.cta }}</button>
+</div>
+</section>
+</div>
+</sc-if>
+<nav aria-label="Navegación" class="mob-only" style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; height: 72px; box-sizing: border-box; padding: 6px 6px 10px; justify-content: space-around; align-items: center; background: #FFFFFF; border-top: 1.5px solid #E6EBF2">
+<sc-for list="{{ mobTabs }}" as="mt" hint-placeholder-count="5">
+<button type="button" onClick="{{ mt.pick }}" style="{{ mt.style }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ mt.d }}"></path></svg>{{ mt.label }}</button>
+</sc-for>
+</nav>
+</div>
+</sc-if></template>
+<div id="app"></div>
+<script>!function(){var n,l,t,u,i,o,r,e,f,c,a=65536,s=1<<17,h={},v=[],p=/acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i,y=Array.isArray;function d(n,l){for(var t in l)n[t]=l[t];return n}function _(n){var l=n.parentNode;l&&l.removeChild(n)}function m(l,t,u){var i,o,r,e={};for(r in t)"key"==r?i=t[r]:"ref"==r?o=t[r]:e[r]=t[r];if(arguments.length>2&&(e.children=arguments.length>3?n.call(arguments,2):u),"function"==typeof l&&null!=l.defaultProps)for(r in l.defaultProps)void 0===e[r]&&(e[r]=l.defaultProps[r]);return g(l,e,i,o,null)}function g(n,u,i,o,r){var e={type:n,props:u,key:i,ref:o,__k:null,__:null,__b:0,__e:null,__d:void 0,__c:null,constructor:void 0,__v:null==r?++t:r,__i:-1,__u:0};return null==r&&null!=l.vnode&&l.vnode(e),e}function b(n){return n.children}function k(n,l){this.props=n,this.context=l}function w(n,l){if(null==l)return n.__?w(n.__,n.__i+1):null;for(var t;l<n.__k.length;l++)if(null!=(t=n.__k[l])&&null!=t.__e)return t.__e;return"function"==typeof n.type?w(n):null}function C(n){var l,t;if(null!=(n=n.__)&&null!=n.__c){for(n.__e=n.__c.base=null,l=0;l<n.__k.length;l++)if(null!=(t=n.__k[l])&&null!=t.__e){n.__e=n.__c.base=t.__e;break}return C(n)}}function x(n){(!n.__d&&(n.__d=!0)&&i.push(n)&&!P.__r++||o!==l.debounceRendering)&&((o=l.debounceRendering)||r)(P)}function P(){var n,t,u,o,r,f,c,a,s;for(i.sort(e);n=i.shift();)n.__d&&(t=i.length,o=void 0,f=(r=(u=n).__v).__e,a=[],s=[],(c=u.__P)&&((o=d({},r)).__v=r.__v+1,l.vnode&&l.vnode(o),L(c,o,r,u.__n,void 0!==c.ownerSVGElement,32&r.__u?[f]:null,a,null==f?w(r):f,!!(32&r.__u),s),o.__.__k[o.__i]=o,M(a,o,s),o.__e!=f&&C(o)),i.length>t&&i.sort(e));P.__r=0}function S(n,l,t,u,i,o,r,e,f,c,s){var p,y,d,_,m,g=u&&u.__k||v,b=l.length;for(t.__d=f,$(t,l,g),f=t.__d,p=0;p<b;p++)null!=(d=t.__k[p])&&"boolean"!=typeof d&&"function"!=typeof d&&(y=-1===d.__i?h:g[d.__i]||h,d.__i=p,L(n,d,y,i,o,r,e,f,c,s),_=d.__e,d.ref&&y.ref!=d.ref&&(y.ref&&z(y.ref,null,d),s.push(d.ref,d.__c||_,d)),null==m&&null!=_&&(m=_),d.__u&a||y.__k===d.__k?f=A(d,f,n):"function"==typeof d.type&&void 0!==d.__d?f=d.__d:_&&(f=_.nextSibling),d.__d=void 0,d.__u&=-196609);t.__d=f,t.__e=m}function $(n,l,t){var u,i,o,r,e,f=l.length,c=t.length,h=c,v=0;for(n.__k=[],u=0;u<f;u++)null!=(i=n.__k[u]=null==(i=l[u])||"boolean"==typeof i||"function"==typeof i?null:"string"==typeof i||"number"==typeof i||"bigint"==typeof i||i.constructor==String?g(null,i,null,null,i):y(i)?g(b,{children:i},null,null,null):void 0===i.constructor&&i.__b>0?g(i.type,i.props,i.key,i.ref?i.ref:null,i.__v):i)?(i.__=n,i.__b=n.__b+1,e=E(i,t,r=u+v,h),i.__i=e,o=null,-1!==e&&(h--,(o=t[e])&&(o.__u|=s)),null==o||null===o.__v?(-1==e&&v--,"function"!=typeof i.type&&(i.__u|=a)):e!==r&&(e===r+1?v++:e>r?h>f-r?v+=e-r:v--:v=e<r&&e==r-1?e-r:0,e!==u+v&&(i.__u|=a))):(o=t[u])&&null==o.key&&o.__e&&(o.__e==n.__d&&(n.__d=w(o)),F(o,o,!1),t[u]=null,h--);if(h)for(u=0;u<c;u++)null!=(o=t[u])&&0==(o.__u&s)&&(o.__e==n.__d&&(n.__d=w(o)),F(o,o))}function A(n,l,t){var u,i;if("function"==typeof n.type){for(u=n.__k,i=0;u&&i<u.length;i++)u[i]&&(u[i].__=n,l=A(u[i],l,t));return l}return n.__e!=l&&(t.insertBefore(n.__e,l||null),l=n.__e),l&&l.nextSibling}function E(n,l,t,u){var i=n.key,o=n.type,r=t-1,e=t+1,f=l[t];if(null===f||f&&i==f.key&&o===f.type)return t;if(u>(null!=f&&0==(f.__u&s)?1:0))for(;r>=0||e<l.length;){if(r>=0){if((f=l[r])&&0==(f.__u&s)&&i==f.key&&o===f.type)return r;r--}if(e<l.length){if((f=l[e])&&0==(f.__u&s)&&i==f.key&&o===f.type)return e;e++}}return-1}function H(n,l,t){"-"===l[0]?n.setProperty(l,null==t?"":t):n[l]=null==t?"":"number"!=typeof t||p.test(l)?t:t+"px"}function I(n,l,t,u,i){var o;n:if("style"===l)if("string"==typeof t)n.style.cssText=t;else{if("string"==typeof u&&(n.style.cssText=u=""),u)for(l in u)t&&l in t||H(n.style,l,"");if(t)for(l in t)u&&t[l]===u[l]||H(n.style,l,t[l])}else if("o"===l[0]&&"n"===l[1])o=l!==(l=l.replace(/(PointerCapture)$|Capture$/,"$1")),l=l.toLowerCase()in n?l.toLowerCase().slice(2):l.slice(2),n.l||(n.l={}),n.l[l+o]=t,t?u?t.t=u.t:(t.t=Date.now(),n.addEventListener(l,o?D:T,o)):n.removeEventListener(l,o?D:T,o);else{if(i)l=l.replace(/xlink(H|:h)/,"h").replace(/sName$/,"s");else if("width"!==l&&"height"!==l&&"href"!==l&&"list"!==l&&"form"!==l&&"tabIndex"!==l&&"download"!==l&&"rowSpan"!==l&&"colSpan"!==l&&"role"!==l&&l in n)try{n[l]=null==t?"":t;break n}catch(n){}"function"==typeof t||(null==t||!1===t&&"-"!==l[4]?n.removeAttribute(l):n.setAttribute(l,t))}}function T(n){var t=this.l[n.type+!1];if(n.u){if(n.u<=t.t)return}else n.u=Date.now();return t(l.event?l.event(n):n)}function D(n){return this.l[n.type+!0](l.event?l.event(n):n)}function L(n,t,u,i,o,r,e,f,c,a){var s,h,v,p,_,m,g,w,C,x,P,$,A,E,H,I=t.type;if(void 0!==t.constructor)return null;128&u.__u&&(c=!!(32&u.__u),r=[f=t.__e=u.__e]),(s=l.__b)&&s(t);n:if("function"==typeof I)try{if(w=t.props,C=(s=I.contextType)&&i[s.__c],x=s?C?C.props.value:s.__:i,u.__c?g=(h=t.__c=u.__c).__=h.__E:("prototype"in I&&I.prototype.render?t.__c=h=new I(w,x):(t.__c=h=new k(w,x),h.constructor=I,h.render=N),C&&C.sub(h),h.props=w,h.state||(h.state={}),h.context=x,h.__n=i,v=h.__d=!0,h.__h=[],h._sb=[]),null==h.__s&&(h.__s=h.state),null!=I.getDerivedStateFromProps&&(h.__s==h.state&&(h.__s=d({},h.__s)),d(h.__s,I.getDerivedStateFromProps(w,h.__s))),p=h.props,_=h.state,h.__v=t,v)null==I.getDerivedStateFromProps&&null!=h.componentWillMount&&h.componentWillMount(),null!=h.componentDidMount&&h.__h.push(h.componentDidMount);else{if(null==I.getDerivedStateFromProps&&w!==p&&null!=h.componentWillReceiveProps&&h.componentWillReceiveProps(w,x),!h.__e&&(null!=h.shouldComponentUpdate&&!1===h.shouldComponentUpdate(w,h.__s,x)||t.__v===u.__v)){for(t.__v!==u.__v&&(h.props=w,h.state=h.__s,h.__d=!1),t.__e=u.__e,t.__k=u.__k,t.__k.forEach(function(n){n&&(n.__=t)}),P=0;P<h._sb.length;P++)h.__h.push(h._sb[P]);h._sb=[],h.__h.length&&e.push(h);break n}null!=h.componentWillUpdate&&h.componentWillUpdate(w,h.__s,x),null!=h.componentDidUpdate&&h.__h.push(function(){h.componentDidUpdate(p,_,m)})}if(h.context=x,h.props=w,h.__P=n,h.__e=!1,$=l.__r,A=0,"prototype"in I&&I.prototype.render){for(h.state=h.__s,h.__d=!1,$&&$(t),s=h.render(h.props,h.state,h.context),E=0;E<h._sb.length;E++)h.__h.push(h._sb[E]);h._sb=[]}else do{h.__d=!1,$&&$(t),s=h.render(h.props,h.state,h.context),h.state=h.__s}while(h.__d&&++A<25);h.state=h.__s,null!=h.getChildContext&&(i=d(d({},i),h.getChildContext())),v||null==h.getSnapshotBeforeUpdate||(m=h.getSnapshotBeforeUpdate(p,_)),S(n,y(H=null!=s&&s.type===b&&null==s.key?s.props.children:s)?H:[H],t,u,i,o,r,e,f,c,a),h.base=t.__e,t.__u&=-161,h.__h.length&&e.push(h),g&&(h.__E=h.__=null)}catch(n){t.__v=null,c||null!=r?(t.__e=f,t.__u|=c?160:32,r[r.indexOf(f)]=null):(t.__e=u.__e,t.__k=u.__k),l.__e(n,t,u)}else null==r&&t.__v===u.__v?(t.__k=u.__k,t.__e=u.__e):t.__e=j(u.__e,t,u,i,o,r,e,c,a);(s=l.diffed)&&s(t)}function M(n,t,u){t.__d=void 0;for(var i=0;i<u.length;i++)z(u[i],u[++i],u[++i]);l.__c&&l.__c(t,n),n.some(function(t){try{n=t.__h,t.__h=[],n.some(function(n){n.call(t)})}catch(n){l.__e(n,t.__v)}})}function j(l,t,u,i,o,r,e,f,c){var a,s,v,p,d,m,g,b=u.props,k=t.props,C=t.type;if("svg"===C&&(o=!0),null!=r)for(a=0;a<r.length;a++)if((d=r[a])&&"setAttribute"in d==!!C&&(C?d.localName===C:3===d.nodeType)){l=d,r[a]=null;break}if(null==l){if(null===C)return document.createTextNode(k);l=o?document.createElementNS("http://www.w3.org/2000/svg",C):document.createElement(C,k.is&&k),r=null,f=!1}if(null===C)b===k||f&&l.data===k||(l.data=k);else{if(r=r&&n.call(l.childNodes),b=u.props||h,!f&&null!=r)for(b={},a=0;a<l.attributes.length;a++)b[(d=l.attributes[a]).name]=d.value;for(a in b)d=b[a],"children"==a||("dangerouslySetInnerHTML"==a?v=d:"key"===a||a in k||I(l,a,null,d,o));for(a in k)d=k[a],"children"==a?p=d:"dangerouslySetInnerHTML"==a?s=d:"value"==a?m=d:"checked"==a?g=d:"key"===a||f&&"function"!=typeof d||b[a]===d||I(l,a,d,b[a],o);if(s)f||v&&(s.__html===v.__html||s.__html===l.innerHTML)||(l.innerHTML=s.__html),t.__k=[];else if(v&&(l.innerHTML=""),S(l,y(p)?p:[p],t,u,i,o&&"foreignObject"!==C,r,e,r?r[0]:u.__k&&w(u,0),f,c),null!=r)for(a=r.length;a--;)null!=r[a]&&_(r[a]);f||(a="value",void 0!==m&&(m!==l[a]||"progress"===C&&!m||"option"===C&&m!==b[a])&&I(l,a,m,b[a],!1),a="checked",void 0!==g&&g!==l[a]&&I(l,a,g,b[a],!1))}return l}function z(n,t,u){try{"function"==typeof n?n(t):n.current=t}catch(n){l.__e(n,u)}}function F(n,t,u){var i,o;if(l.unmount&&l.unmount(n),(i=n.ref)&&(i.current&&i.current!==n.__e||z(i,null,t)),null!=(i=n.__c)){if(i.componentWillUnmount)try{i.componentWillUnmount()}catch(n){l.__e(n,t)}i.base=i.__P=null,n.__c=void 0}if(i=n.__k)for(o=0;o<i.length;o++)i[o]&&F(i[o],t,u||"function"!=typeof n.type);u||null==n.__e||_(n.__e),n.__=n.__e=n.__d=void 0}function N(n,l,t){return this.constructor(n,t)}function O(t,u,i){var o,r,e,f;l.__&&l.__(t,u),r=(o="function"==typeof i)?null:i&&i.__k||u.__k,e=[],f=[],L(u,t=(!o&&i||u).__k=m(b,null,[t]),r||h,h,void 0!==u.ownerSVGElement,!o&&i?[i]:r?null:u.firstChild?n.call(u.childNodes):null,e,!o&&i?i:r?r.__e:u.firstChild,o,f),M(e,t,f)}n=v.slice,l={__e:function(n,l,t,u){for(var i,o,r;l=l.__;)if((i=l.__c)&&!i.__)try{if((o=i.constructor)&&null!=o.getDerivedStateFromError&&(i.setState(o.getDerivedStateFromError(n)),r=i.__d),null!=i.componentDidCatch&&(i.componentDidCatch(n,u||{}),r=i.__d),r)return i.__E=i}catch(l){n=l}throw n}},t=0,u=function(n){return null!=n&&null==n.constructor},k.prototype.setState=function(n,l){var t;t=null!=this.__s&&this.__s!==this.state?this.__s:this.__s=d({},this.state),"function"==typeof n&&(n=n(d({},t),this.props)),n&&d(t,n),null!=n&&this.__v&&(l&&this._sb.push(l),x(this))},k.prototype.forceUpdate=function(n){this.__v&&(this.__e=!0,n&&this.__h.push(n),x(this))},k.prototype.render=b,i=[],r="function"==typeof Promise?Promise.prototype.then.bind(Promise.resolve()):setTimeout,e=function(n,l){return n.__v.__b-l.__v.__b},P.__r=0,f=0,c={__proto__:null,render:O,hydrate:function n(l,t){O(l,t,n)},createElement:m,h:m,Fragment:b,createRef:function(){return{current:null}},isValidElement:u,Component:k,cloneElement:function(l,t,u){var i,o,r,e,f=d({},l.props);for(r in l.type&&l.type.defaultProps&&(e=l.type.defaultProps),t)"key"==r?i=t[r]:"ref"==r?o=t[r]:f[r]=void 0===t[r]&&void 0!==e?e[r]:t[r];return arguments.length>2&&(f.children=arguments.length>3?n.call(arguments,2):u),g(l.type,f,i||l.key,o||l.ref,null)},createContext:function(n,l){var t={__c:l="__cC"+f++,__:n,Consumer:function(n,l){return n.children(l)},Provider:function(n){var t,u;return this.getChildContext||(t=[],(u={})[l]=this,this.getChildContext=function(){return u},this.shouldComponentUpdate=function(n){this.props.value!==n.value&&t.some(function(n){n.__e=!0,x(n)})},this.sub=function(n){t.push(n);var l=n.componentWillUnmount;n.componentWillUnmount=function(){t.splice(t.indexOf(n),1),l&&l.call(n)}}),n.children}};return t.Provider.__=t.Consumer.contextType=t},toChildArray:function n(l,t){return t=t||[],null==l||"boolean"==typeof l||(y(l)?l.some(function(l){n(l,t)}):t.push(l)),t},options:l},typeof module<"u"?module.exports=c:self.preact=c}();
+//# sourceMappingURL=preact.min.js.map
+</script>
+<script>
+(function(){
+var P=window.preact, h=P.h;
+var IMG={"/_blob/8cbf3e0b5370900932c9fe388d072ed1": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABdCAMAAABtopN5AAAAwFBMVEXnZgoAIFLxZwX1YwIBUZgDV5wDGF0AHE/vZQUIIU8AVJ8XVnkDVJyuXiGcUSEAMj1/fwD/AAAAOY8HQ30AAP9eXmsAPYBIOjxxSDOqVVX//wAAP4FiQzSqWiH/f3//gAAAAAAAKVwATZcALWIAWKX9cwH4WQAAUZwAMmj8aQEAYrMAHE0BJ1kGJ1cASpHwagcDJlcCSI4CSpD3awMDSo8AGUwCJ1gCSY/zawYGJ1MFUpjuaQb6agIBJlkBOnQBSpGAm4+CAAAAQHRSTlMWY2KmqB8bn9jX0BVrCPkEAgENSAEEp/3+AwHgiXkC/wD8+/38/Pv7/fn88s8w0C9RMG+QThSNFU0RTRLNrweMXuWM+gAACGFJREFUeNrlWdd2o0gQJQmUHCZu3oUGucFGCZRlof//q63OAZDHc9ZP2+eMZ8ay76XqVmyc+IOP878jaJrwwwi20eVSluNxEASDDyFwX5I0TbPnLMuCDyGICH6ePT8/Z8HXDyA4joAgZwTZ4L8hcCNXSRq+dBNUwan5OYIwSpLEVWzUQ5TgOZvKb09Rlo1PP0GwjV4Sclbsf3O3pAZwgvF0wIw44Yyc/rjqI3BHSZJShnl8XF3KhDy/JKAcwXQQDzJxpvv3EIT08VN6yov4Z55rBM/0wceSoNuI5uj04qfyJBLdJjDOuM3QuI3TF/IaAYFvEzy/TbD+Hva4yDUs0J7/FsHURhks3D4NtjYB9VQ5ii4RVKIxeL7DRbYBJxT1R1FkESTlbjWXSTcYnKYBtvDt+jRFo20/gZtoKiSlOxcfPDqOc/5EWSwO00NNgPNV/CYB+ZJc5loL+NvxPN/3vSX5xYFOYYTpIEC5258HIg0SCt/6+M7x/NnMP5xNCo1hP8Z59NBL8MAUIGlcrnoyfVkXs6HnEIo2w2CM8jLsz2SFvzveqGLebDYDiskUWwynDOfJqqNURFCdG+5/rdCJnwTvw3F+V1aAo4YAcJIF40oYKozz1O2oRe4LeH4U7RJ+St37jj+czf6BZ/b1RzrAN73flJuAYBIQ/EvTJtiOEuOUR90dxYyd2vSpQ9Q+A6pwEXChPB2FHdU06sc/+xy+qG3NnBrctKQMGPD39Pm1NqUIwhcTX/PP+XUmnr9DbI8z4CkLKZQQAdouikwC3f+1wPc6w6mmUu9PJPwBP02jMP7yfWIRWAbo8bPk/i+8nngFhtczDX+KDwJ8/gNtLAJTgZ0OIAQ49GbEcFYsJX4K+AFCgUlgGqALHJ+5Ab4Jqqu9HB5Y+yf4IECF4KxvEBgJdugiOPu+1dkpfp6QDFijNgHtYeJc7Cihh7pZhn/xagaswIcStF8Q/KoVpqPOCNJiyNGcXhQ6H8OHBCAZ0AQEf9NONMlwibsJah2/GJ4t/AyeP92ZApi1SOhgNQBZJYqDwH96AgLHxgeBhQCbzsGLy3CxVpiDJHjySQMg+MCgiXwidYgEEKS/KYBJwFPBtYL8VeKT4/tP7Kiso/2A4EP0NVeCj4MuAlFNTQ8tTXx15C9WAp8IQByE4c++g4BLcOnGt+Cf/E/G81MBID0nC4qvieDog0TLQ8tZD740QOGD6XdOTF2ki2D2g9T00KEX39P1xTkTIKwP8ReEsSGCY0tw/BF8X8enAUoE8KCeT6gBeLE3CLauK9pB+dCOzzb+nY5PBYbgXhYQu99omIIRwXWzFwS027fSuBd/6On5xQU4kowk2Rcgda6cYPTS0QlE/Mjw9H2SYUPfu+vAX/HGxFTGmBEsGkpgjBOu3Yc1WR1yzPoA+HlOBSCNowCCiviHE5B0cNgy0GoFdRs/btVnGkDAcDmynC9A5Y0y4BaBEKAXf4BVACWsen0CggMlkCKs+wiEgzT8SdWLL6z2OQF6m6AuDIEJPkLTFj6i6+FOmw68NwlcNqgUOj78zBfi2ZONTwWWEwKpu5YF+54oqu3nJwUADi9hfL0n+HmqasuZElQ6wYAShCNrIuKDisKfp4hEDMaDmM9XEl/N6fTXHINg8VlkMkcHwS6yBhWy7MyTNMeSgePjXGWAnACHNNEwrxbo+pXXoiPUIjFzhcJDvC448bwkizjm2zzHz+hWnuojGoT28DFeEG8CeFCt9z3VlDXJQjpoR/DTnN8XCPyUGmDMyAUMZw3NM7ua6i15xYdd7qBH6iF6WaEvxYheLqQrq3kfeM/E1/6OtuNtTMvgFWNAGj7NsNSYkeG5irPQuOrryRDWoac8xIefHdv6kYVfhtaI6T9+CxDqG7weuAg6AS9Bx5JduXAGzPANAaiHPD73osX+1lzkKQ+JT5kMIpQ4vjlAEQ/JLOici+KQB6oiUOOhm6hQQmlbABrbNUwtrJJubhEkf6oxTn24ozonucQvjy0DllCIWBJ0EsgFfwQ/WxQWwbZkTkIc3x6Ra7KhfAowO12Dl6vq0b0wQd9i5gm/WEtzvQcYBqyRIGjvB+RqXRCMugiYDOKOyhKALPx1HAoDINNQ1dg7WmqY0CagMqSdApAdAjaejTBA18GRt4CUgLMMWRgNjT0sLOUd27zLQRBC2rGXwIiCp/ye6BdugrnozcUtniXA+bWA7ee3QEPHOGhv+hpB8isjsIYJt0eAoqjJbkbHXuGhdeuuwrxsuacMcgvgT3HpEMCpAf9OCEDnOqyN145+F6uf4aztIyKDvQI59YzgTxCH55Pjuj/RUiF00YojUrmtDIAAJfjrBTJOVz84shtxLZQK2Fbtkc7d2SsW2W4nYmjnX7qrKWkI5W6+kgz3hbkOd15GkSsFNQtt1tWit9jFrjs/MjckisHvZ1iCe2CY/1bJcZc0smZdVV9vvwFRZemXITDc9dwSkeiEX1+rlaP60VcseuEDhnP7J87w9EN/Gcf7qkvZN9/hKB2S0f3M0sE5Hzz/tT7AdycbLXqq97yF0mwAiqF2m+ksPc87LInf9pUenFX8MwTcjl/v/xJKPPKr5cHmakQ+fh9BpKHTlwiwf7rz+XHbPEz2+/XmGhjgpAgtmncQ8LqRMvA0kRlejhaLBdLXMFZ8sDELvU3gJvaRvQZpPYXjMwZ8/XECtjGkepOT77tQZuGLEq0NvG8SPERqYZB/CwuyzDBBtZhuEXo0iFQQlbtSN0ERYLS4LlSXv+7f9za2FE8+jxvyrlcwYE4A6JvP5IqOGbPYvPt9smts5sfVJeEWUH9v9ux9DWkEuPfxb78R3+6MW2ZXJ1BZRebp6/on3+mHO9fIDUmgx/z6Fnwc/wuk0HzkvZpTwQAAAABJRU5ErkJggg==", "/_blob/d65f8f7ac1cf889ffe9353d61e47a21d": "data:image/jpeg;base64,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", "/_blob/e48e589d5ff1286382966ec40c0ffb21": "data:image/jpeg;base64,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", "/_blob/df8bc264d23272b21ca8f50ac99c8d3e": "data:image/jpeg;base64,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"};
+function fix(v){ if(typeof v==='string'&&IMG[v]) return IMG[v]; return v; }
+function lookup(path, scope){
+  path=path.trim();
+  if(path==='true')return true; if(path==='false')return false; if(path==='null')return null;
+  if(/^-?\d+(\.\d+)?$/.test(path))return parseFloat(path);
+  var parts=path.split('.'), v=scope;
+  for(var i=0;i<parts.length;i++){ if(v==null)return undefined; v=v[parts[i]]; }
+  return v;
+}
+var WHOLE=/^\s*\{\{([^}]+)\}\}\s*$/;
+function interp(str, scope){
+  var m=str.match(WHOLE); if(m) return fix(lookup(m[1],scope));
+  if(str.indexOf('{{')<0) return fix(str);
+  return str.replace(/\{\{([^}]+)\}\}/g,function(_,p){ var v=fix(lookup(p,scope)); return v==null?'':String(v); });
+}
+var tplRoot;
+function kids(node, scope){
+  var out=[]; for(var c=node.firstChild;c;c=c.nextSibling){ var r=render(c,scope); if(Array.isArray(r)) out.push.apply(out,r); else if(r!=null&&r!=='') out.push(r); } return out;
+}
+function render(node, scope){
+  if(node.nodeType===3){ var t=node.nodeValue; if(!/\S/.test(t)) return t.indexOf('\n')>=0?null:' '; return interp(t,scope); }
+  if(node.nodeType!==1) return null;
+  var tag=node.tagName.toLowerCase();
+  if(tag==='sc-if'){ return lookup(node.getAttribute('value').replace(/[{}]/g,''),scope)?kids(node,scope):null; }
+  if(tag==='sc-for'){
+    var list=lookup(node.getAttribute('list').replace(/[{}]/g,''),scope)||[]; var as=node.getAttribute('as');
+    var res=[]; list.forEach(function(item,i){ var sc=Object.create(scope); sc[as]=item; sc.$index=i; res.push.apply(res,kids(node,sc)); }); return res;
+  }
+  var props={};
+  for(var i=0;i<node.attributes.length;i++){
+    var a=node.attributes[i], n=a.name;
+    if(n.indexOf('hint-')===0) continue;
+    var v=interp(a.value,scope);
+    if(/^on/.test(n)){ if(typeof v==='function') props[n==='onchange'?'onchange':n]=v; continue; }
+    if(n==='class') n='class';
+    if(n==='checked'||n==='disabled'){ v=!!v && v!=='false'; }
+    if(n==='aria-pressed'){ v=String(!!v); }
+    props[n]=v;
+  }
+  var ch=(tag==='textarea')?[]:kids(node,scope);
+  return h(tag,props,ch);
+}
+function DCLogic(props){ P.Component.call(this,props); }
+DCLogic.prototype=Object.create(P.Component.prototype);
+DCLogic.prototype.constructor=DCLogic;
+DCLogic.prototype.render=function(){ var vals=this.renderVals(); return h('div',{style:'display:contents'},kids(tplRoot,vals)); };
+window.__boot=function(Comp){
+  tplRoot=document.getElementById('tpl').content;
+  P.render(h(Comp,{}),document.getElementById('app'));
+};
+window.DCLogic=DCLogic;
+})();
+</script>
+<script>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = {
+view: 'inicio',
+toolId: 'escalera',
+days: 2,
+extras: {},
+prot: true,
+plan: 'basico',
+tab: 'cuenta',
+llaveOpen: false,
+typing: false,
+draft: '',
+chat: [],
+have: {},
+loggedIn: false,
+loginUser: '',
+loginPass: '',
+showPw: false,
+loginError: false,
+loc: 'palermo',
+mapOpen: false,
+mapPick: 'palermo',
+radius: 2,
+locating: false,
+located: false,
+pendingPlan: null,
+planMsg: '',
+query: '',
+pub: { cat: 'taladro', name: '', cond: 'buen', price: '', pickup: 'ferreteria', photos: 0, desc: '' },
+pubError: '',
+pubMsg: '',
+myTools: [
+{ id: 'm1', cat: 'lijadora', name: 'Lijadora orbital', info: '$3.500 por día · 3 alquileres · retiro en Ferretería La Esquina', status: 'Publicada', live: true, earned: '$9.975' },
+{ id: 'm2', cat: 'ingletadora', name: 'Ingletadora 210 mm', info: '$8.000 por día · 1 alquiler · retiro en tu casa', status: 'Publicada', live: true, earned: '$7.600' }
+],
+rentals: [
+{ id: 'r1', tool: 'taladro', name: 'Taladro percutor', owner: 'Martín, vecino', when: '12 al 13 de septiembre', status: 'Devuelto', active: false, d: 'M3 7h11v6H3zM14 9h4l3 1-3 1h-4M6 13v5a2 2 0 0 0 2 2h1v-7' },
+{ id: 'r2', tool: 'hidro', name: 'Hidrolavadora', owner: 'Ferretería Don Tito', when: '2 al 3 de agosto', status: 'Devuelto', active: false, d: 'M3 10V7h7v3M3 10h10l2 2h6M7 10v6a2 2 0 0 0 2 2h2' }
+]
+};
+this._body = null;
+this._timer = null;
+}
+componentDidUpdate() {
+if (this._body) { this._body.scrollTop = this._body.scrollHeight; }
+}
+componentWillUnmount() {
+if (this._timer) { clearTimeout(this._timer); }
+}
+fmt(n) {
+return '$' + String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+imgs() {
+return { escalera: '/_blob/e48e589d5ff1286382966ec40c0ffb21', taladro: '/_blob/d65f8f7ac1cf889ffe9353d61e47a21d', hidro: '/_blob/df8bc264d23272b21ca8f50ac99c8d3e' };
+}
+barriosData() {
+return [
+{ id: 'nunez', name: 'Núñez', x: 56, y: 9 },
+{ id: 'urquiza', name: 'Villa Urquiza', x: 26, y: 20 },
+{ id: 'belgrano', name: 'Belgrano', x: 54, y: 22 },
+{ id: 'colegiales', name: 'Colegiales', x: 40, y: 33 },
+{ id: 'palermo', name: 'Palermo', x: 62, y: 40 },
+{ id: 'villacrespo', name: 'Villa Crespo', x: 40, y: 50 },
+{ id: 'recoleta', name: 'Recoleta', x: 72, y: 54 },
+{ id: 'caballito', name: 'Caballito', x: 30, y: 66 },
+{ id: 'almagro', name: 'Almagro', x: 54, y: 66 },
+{ id: 'santelmo', name: 'San Telmo', x: 77, y: 80 }
+];
+}
+tryLogin(e) {
+if (e && e.preventDefault) e.preventDefault();
+let u = this.state.loginUser;
+let p = this.state.loginPass;
+try {
+const doc = (e && e.target && e.target.ownerDocument) || document;
+const uEl = doc.getElementById('login-user');
+const pEl = doc.getElementById('login-pass');
+if (uEl && uEl.value) u = uEl.value;
+if (pEl && pEl.value) p = pEl.value;
+} catch (err) {}
+const ok = this.normUser(u) === 'nicolas' && String(p || '').trim() === '12345678';
+if (ok) { this.go('inicio', { loggedIn: true, loginError: false, loginUser: u, loginPass: '', showPw: false }); }
+else { this.setState({ loginUser: u, loginPass: p, loginError: true }); }
+}
+catsData() {
+return [
+{ id: 'taladro', label: 'Taladro', blue: false, d: 'M3 7h11v6H3zM14 9h4l3 1-3 1h-4M6 13v5a2 2 0 0 0 2 2h1v-7', sug: [4000, 6000] },
+{ id: 'escalera', label: 'Escalera', blue: true, d: 'M8 3 5 21M16 3l3 18M7.2 8h9.6M6.4 13h11.2M5.6 18h12.8', sug: [5000, 7000] },
+{ id: 'lijadora', label: 'Lijadora', blue: false, d: 'M4 14h16v4H4zM8 14V8a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v6', sug: [3000, 4500] },
+{ id: 'hidro', label: 'Hidrolavadora', blue: true, d: 'M3 10V7h7v3M3 10h10l2 2h6M7 10v6a2 2 0 0 0 2 2h2', sug: [7000, 10000] },
+{ id: 'ingletadora', label: 'Ingletadora', blue: true, d: 'M6 12a6 6 0 1 0 12 0a6 6 0 1 0-12 0M3 20h18M12 6V3', sug: [6000, 9000] },
+{ id: 'otra', label: 'Otra', blue: false, d: 'M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.6 2.6-2.4-.6-.6-2.4z', sug: [3000, 6000] }
+];
+}
+setPub(patch) {
+this.setState({ pub: Object.assign({}, this.state.pub, patch), pubError: '' });
+}
+domVal(id, fallback) {
+try { const el = document.getElementById(id); if (el && typeof el.value === 'string' && el.value !== '') return el.value; } catch (e) {}
+return fallback;
+}
+publish() {
+const pub = this.state.pub;
+const name = String(this.domVal('pub-name', pub.name) || '').trim();
+const priceRaw = String(this.domVal('pub-price', pub.price) || '');
+const price = parseInt(priceRaw.replace(/[^0-9]/g, ''), 10);
+if (!name) { this.setState({ pubError: 'Poné el nombre de la herramienta.' }); return; }
+if (!price || price < 500) { this.setState({ pubError: 'Poné un precio por día (mínimo $500).' }); return; }
+const shop = pub.pickup === 'ferreteria';
+const item = { id: 'm' + Date.now(), cat: pub.cat, name: name, info: this.fmt(price) + ' por día · 0 alquileres · ' + (shop ? 'retiro en Ferretería La Esquina' : 'retiro en tu casa'), status: shop ? 'La ferretería la revisa' : 'Publicada', live: !shop, earned: '$0' };
+this.go('perfil', {
+tab: 'herramientas',
+myTools: [item].concat(this.state.myTools),
+pub: { cat: 'taladro', name: '', cond: 'buen', price: '', pickup: 'ferreteria', photos: 0, desc: '' },
+pubError: '',
+pubMsg: shop ? '¡Listo! Publicaste "' + name + '". Llevala a Ferretería La Esquina: la revisan y queda visible en el día.' : '¡Listo! Publicaste "' + name + '". Ya la pueden alquilar tus vecinos.'
+});
+}
+normUser(u) {
+return String(u || '').trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+toolsData() {
+return [
+{ id: 'escalera', short: 'Escalera articulada', name: 'Escalera articulada de aluminio, 4 × 4 escalones', owner: 'Ferretería La Esquina', ownerShort: 'Ferretería La Esquina', ownerType: 'Ferretería', initials: 'LE', shop: true, dist: '350 m', price: 6000, today: true, rating: '4,8', reviews: 126, use: 'Ideal para pintar y cambiar lámparas', deposit: 35000, blue: true, d: 'M8 3 5 21M16 3l3 18M7.2 8h9.6M6.4 13h11.2M5.6 18h12.8', extras: [{ id: 'rodillo', name: 'Rodillo + bandeja', price: 4200 }, { id: 'cinta', name: 'Cinta de papel 48 mm', price: 1900 }] },
+{ id: 'taladro', short: 'Taladro percutor', name: 'Taladro percutor 13 mm', owner: 'Martín, vecino', ownerShort: 'Martín (dueño)', ownerType: 'Vecino verificado', initials: 'M', shop: false, dist: '600 m', price: 5000, today: false, rating: '4,9', reviews: 38, use: 'Para colgar estantes, cuadros y cortinas', deposit: 40000, blue: false, d: 'M3 7h11v6H3zM14 9h4l3 1-3 1h-4M6 13v5a2 2 0 0 0 2 2h1v-7', extras: [{ id: 'mechas', name: 'Juego de mechas para pared', price: 3800 }, { id: 'tarugos', name: 'Tarugos y tornillos x20', price: 1500 }] },
+{ id: 'hidro', short: 'Hidrolavadora', name: 'Hidrolavadora 1.600 W', owner: 'Ferretería Don Tito', ownerShort: 'Ferretería Don Tito', ownerType: 'Ferretería', initials: 'DT', shop: true, dist: '1,2 km', price: 9000, today: true, rating: '4,7', reviews: 64, use: 'Para patios, balcones y veredas', deposit: 60000, blue: true, d: 'M3 10V7h7v3M3 10h10l2 2h6M7 10v6a2 2 0 0 0 2 2h2', extras: [{ id: 'deter', name: 'Detergente para hidrolavadora', price: 3200 }] },
+{ id: 'amoladora', short: 'Amoladora angular', name: 'Amoladora angular 115 mm', owner: 'Ferretería La Esquina', ownerShort: 'Ferretería La Esquina', ownerType: 'Ferretería', initials: 'LE', shop: true, dist: '350 m', price: 5500, today: true, rating: '4,8', reviews: 51, use: 'Para cortar metal, cerámica y caños', deposit: 45000, blue: false, d: 'M3 12a4 4 0 1 0 8 0a4 4 0 1 0-8 0M11 12h10M16 12V8', extras: [{ id: 'discos', name: 'Discos de corte x3', price: 2900 }, { id: 'antiparras', name: 'Antiparras de protección', price: 2400 }] },
+{ id: 'sonda', short: 'Sonda destapacañerías', name: 'Sonda destapacañerías de 10 m', owner: 'Ana, vecina', ownerShort: 'Ana (dueña)', ownerType: 'Vecina verificada', initials: 'A', shop: false, dist: '900 m', price: 3500, today: false, rating: '4,6', reviews: 22, use: 'Para piletas, duchas y desagües', deposit: 20000, blue: true, d: 'M12 3s6 6.5 6 10.5a6 6 0 0 1-12 0C6 9.5 12 3 12 3z', extras: [{ id: 'guantes', name: 'Guantes de látex', price: 1200 }] },
+{ id: 'atornillador', short: 'Atornillador inalámbrico', name: 'Atornillador inalámbrico 12 V', owner: 'Ferretería Don Tito', ownerShort: 'Ferretería Don Tito', ownerType: 'Ferretería', initials: 'DT', shop: true, dist: '1,2 km', price: 4000, today: true, rating: '4,9', reviews: 87, use: 'Para armar muebles y ajustar herrajes', deposit: 30000, blue: false, d: 'M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.6 2.6-2.4-.6-.6-2.4z', extras: [{ id: 'puntas', name: 'Set de puntas x10', price: 2500 }] }
+];
+}
+llaveData() {
+return {
+pintar: {
+title: 'Pintar una pared',
+intro: 'Para una pared de unos 12 m², a dos manos, necesitás esto. Lo más cerca con stock hoy es Ferretería La Esquina, a 350 m.',
+tool: 'escalera', days: 2, ctaLabel: 'Alquilar la escalera y sumar lo que falta',
+items: [
+{ id: 'escalera', rent: true, name: 'Escalera articulada de aluminio', where: 'Ferretería La Esquina · 350 m · $6.000 por día × 2', price: 12000 },
+{ id: 'rodillo', name: 'Rodillo + bandeja', where: 'Ferretería La Esquina', price: 4200, extra: 'rodillo' },
+{ id: 'cinta', name: 'Cinta de papel 48 mm', where: 'Ferretería La Esquina', price: 1900, extra: 'cinta' },
+{ id: 'pincel', name: 'Pincel de 2 pulgadas', where: 'Ferretería La Esquina', price: 2300 },
+{ id: 'enduido', name: 'Enduído y lija fina', where: 'Ferretería La Esquina', price: 5500 },
+{ id: 'nylon', name: 'Nylon para cubrir el piso', where: 'Ferretería La Esquina', price: 1500 },
+{ id: 'latex', name: 'Látex interior 4 L', where: 'Ferretería La Esquina', price: 26000 }
+],
+steps: ['Mové los muebles y cubrí el piso con el nylon.', 'Encintá zócalos, marcos y tapas de enchufes.', 'Tapá los agujeros con enduído y lijá cuando seque.', 'Pintá primero bordes y esquinas con el pincel.', 'Pasá el rodillo en forma de W, de arriba hacia abajo.', 'Esperá el secado que indica la lata y dá la segunda mano.', 'Sacá la cinta antes de que la pintura seque del todo.'],
+tip: 'Calculá aproximadamente 1 litro cada 10 m² por mano.'
+},
+destapar: {
+title: 'Destapar una pileta',
+intro: 'Probá primero con sopapa. Si no alcanza, te sirve una sonda: Ana, una vecina a 900 m, alquila una de 10 m.',
+tool: 'sonda', days: 1, ctaLabel: 'Alquilar la sonda y sumar lo que falta',
+items: [
+{ id: 'sonda', rent: true, name: 'Sonda destapacañerías 10 m', where: 'Ana, vecina · 900 m · $3.500 por día', price: 3500 },
+{ id: 'guantes', name: 'Guantes de látex', where: 'Ferretería La Esquina', price: 1200, extra: 'guantes' },
+{ id: 'sopapa', name: 'Sopapa', where: 'Ferretería La Esquina', price: 3000 },
+{ id: 'balde', name: 'Balde', where: 'Ferretería La Esquina', price: 2500 }
+],
+steps: ['Sacá el agua acumulada y probá con la sopapa.', 'Poné el balde abajo y desarmá el sifón para limpiarlo.', 'Meté la sonda por el caño, girándola hasta sentir la obstrucción.', 'Girá y empujá suave hasta romperla.', 'Sacá la sonda, rearmá el sifón y probá con agua caliente.'],
+tip: 'Si el agua vuelve por otros desagües, el problema es más profundo: conviene llamar a un plomero.'
+},
+estante: {
+title: 'Colgar un estante',
+intro: 'Para una pared de ladrillo necesitás taladro y mecha de pared. Martín, un vecino a 600 m, alquila uno.',
+tool: 'taladro', days: 1, ctaLabel: 'Alquilar el taladro y sumar lo que falta',
+items: [
+{ id: 'taladro', rent: true, name: 'Taladro percutor', where: 'Martín, vecino · 600 m · $5.000 por día', price: 5000 },
+{ id: 'mechas', name: 'Juego de mechas para pared', where: 'Ferretería La Esquina', price: 3800, extra: 'mechas' },
+{ id: 'tarugos', name: 'Tarugos y tornillos x20', where: 'Ferretería La Esquina', price: 1500, extra: 'tarugos' },
+{ id: 'nivel', name: 'Nivel de burbuja', where: 'Ferretería La Esquina', price: 4500 },
+{ id: 'soportes', name: 'Soportes para estante x2', where: 'Ferretería La Esquina', price: 3600 }
+],
+steps: ['Marcá la altura con lápiz y usá el nivel para que quede derecho.', 'Revisá que no pasen caños ni cables donde vas a perforar.', 'Perforá con una mecha del mismo diámetro que el tarugo.', 'Colocá los tarugos con un golpe suave.', 'Atornillá los soportes y verificá que estén firmes.', 'Apoyá el estante y fijalo a los soportes.'],
+tip: 'Si el estante va a cargar peso, usá tarugos más gruesos y tres soportes.'
+},
+mueble: {
+title: 'Armar un mueble',
+intro: 'Con un atornillador inalámbrico lo armás en la mitad de tiempo. Ferretería Don Tito, a 1,2 km, tiene uno hoy.',
+tool: 'atornillador', days: 1, ctaLabel: 'Alquilar el atornillador',
+items: [
+{ id: 'atornillador', rent: true, name: 'Atornillador inalámbrico 12 V', where: 'Ferretería Don Tito · 1,2 km · $4.000 por día', price: 4000 },
+{ id: 'puntas', name: 'Set de puntas x10', where: 'Ferretería Don Tito', price: 2500, extra: 'puntas' },
+{ id: 'martillo', name: 'Martillo de goma', where: 'Ferretería Don Tito', price: 3900 }
+],
+steps: ['Separá y contá las piezas y tornillos según el instructivo.', 'Armá primero la estructura sin ajustar del todo.', 'Usá el atornillador en velocidad baja para no pasar los tornillos.', 'Cuando todo encaje, ajustá todos los tornillos.', 'Si el mueble es alto, fijalo a la pared para que no se vuelque.'],
+tip: 'Trabajá sobre una manta o el cartón de la caja para no rayar el piso.'
+}
+};
+}
+matchKey(text) {
+const t = String(text || '').toLowerCase();
+if (/pint|pared|latex|látex|rodillo/.test(t)) return 'pintar';
+if (/tap|cañer|caner|pileta|desag|inodoro|ducha/.test(t)) return 'destapar';
+if (/estante|colgar|cuadro|repisa|agujer|taladr|amur/.test(t)) return 'estante';
+if (/mueble|armar|placard|cama|escritorio|ropero/.test(t)) return 'mueble';
+return null;
+}
+ask(text) {
+const clean = String(text || '').trim();
+if (!clean) return;
+const self = this;
+this.setState({ llaveOpen: true, typing: true, draft: '', chat: this.state.chat.concat([{ from: 'user', text: clean }]) });
+if (this._timer) clearTimeout(this._timer);
+this._timer = setTimeout(() => {
+const key = self.matchKey(clean);
+const reply = key
+? { from: 'llave', plan: key }
+: { from: 'llave', text: 'Todavía estoy aprendiendo. Por ahora puedo ayudarte a pintar una pared, destapar una pileta, colgar un estante o armar un mueble. Probá con alguna de las sugerencias.' };
+self.setState({ typing: false, chat: self.state.chat.concat([reply]) });
+}, 1100);
+}
+go(view, extra) {
+this.setState(Object.assign({ view: view }, extra || {}));
+try { window.scrollTo(0, 0); } catch (e) {}
+}
+openTool(id) {
+this.go('detalle', { toolId: id, days: 2, extras: {} });
+}
+openPerfil(tab) {
+this.go('perfil', { tab: tab });
+}
+renderVals() {
+const s = this.state;
+const self = this;
+const fmt = (n) => this.fmt(n);
+const all = this.toolsData();
+const raw = all.find((t) => t.id === s.toolId) || all[0];
+const badgeToday = 'font-size: 12px; font-weight: 700; color: #A84A00; background: #FFF1E4; padding: 4px 9px; border-radius: 10px';
+const badgeLater = 'font-size: 12px; font-weight: 700; color: #1E5BB8; background: #E8F0FB; padding: 4px 9px; border-radius: 10px';
+const IMG = this.imgs();
+const kmOf = { escalera: 0.35, taladro: 0.6, hidro: 1.2, amoladora: 0.35, sonda: 0.9, atornillador: 1.2 };
+const deco = (t) => Object.assign({}, t, {
+img: IMG[t.id] || '',
+hasImg: !!IMG[t.id],
+noImg: !IMG[t.id],
+detailBg: IMG[t.id] ? '#FFFFFF' : (t.blue ? '#E8F0FB' : '#FFF1E4'),
+km: kmOf[t.id] || 1,
+priceTxt: fmt(t.price),
+badge: t.today ? 'Retiro hoy' : 'Mañana',
+badgeStyle: t.today ? badgeToday : badgeLater,
+stroke: t.blue ? '#1E5BB8' : '#C2560A',
+panelBg: t.blue ? '#E8F0FB' : '#FFF1E4',
+panel: 'width: 100%; height: 140px; display: flex; align-items: center; justify-content: center; background: ' + (t.blue ? '#E8F0FB' : '#FFF1E4'),
+seal: t.shop ? 'Revisada por la ferretería' : 'Dueño con identidad verificada',
+pickup: t.shop ? 'Retiro en el local' : 'Retiro en una ferretería cercana',
+open: () => self.openTool(t.id)
+});
+const tools = all.map(deco);
+const tool = deco(raw);
+const nearTools = tools.filter((t) => t.km <= s.radius);
+const radiusTxt = s.radius === 1 ? '1 km' : s.radius + ' km';
+const nearTxt = nearTools.length + ' herramientas a menos de ' + radiusTxt;
+
+const bData = this.barriosData();
+const locObj = bData.find((b) => b.id === s.loc) || bData[4];
+const pickObj = bData.find((b) => b.id === s.mapPick) || locObj;
+const barrios = bData.map((b) => {
+const on = b.id === s.mapPick;
+return {
+name: b.name,
+on: on,
+cls: on ? 'pin-on' : '',
+aria: on ? b.name + ', ubicación elegida' : 'Elegir ' + b.name,
+label: on ? 'Estás acá · ' + b.name : b.name,
+pick: () => self.setState({ mapPick: b.id, located: false }),
+style: 'position: absolute; left: ' + b.x + '%; top: ' + b.y + '%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 6px; min-width: 36px; min-height: 36px; justify-content: center; box-sizing: border-box; padding: 0 ' + (on ? '14px 0 10px' : '10px 0 8px') + '; border-radius: 18px; white-space: nowrap; font-family: DM Sans, sans-serif; font-size: 13px; font-weight: 700; box-shadow: 0 3px 10px rgba(15,47,102,0.18); ' + (on ? 'z-index: 3; height: 40px; border: 0; background: #0F2F66; color: #FFFFFF' : 'z-index: 1; height: 34px; border: 1.5px solid #DCE3EE; background: #FFFFFF; color: #0F2F66'),
+dot: 'flex: none; width: ' + (on ? 14 : 10) + 'px; height: ' + (on ? 14 : 10) + 'px; border-radius: 50%; background: ' + (on ? '#F28C28; box-shadow: 0 0 0 5px rgba(242,140,40,0.35)' : '#1E5BB8'),
+chip: 'height: 38px; padding: 0 14px; border-radius: 19px; font-family: DM Sans, sans-serif; font-size: 13px; font-weight: 700; ' + (on ? 'border: 1.5px solid #0F2F66; background: #0F2F66; color: #FFFFFF' : 'border: 1.5px solid #DCE3EE; background: #F4F6FA; color: #0F2F66')
+};
+});
+const radiusOptions = [1, 2, 5].map((r) => ({
+label: r + ' km',
+on: r === s.radius,
+pick: () => self.setState({ radius: r }),
+style: 'flex: 1; max-width: 120px; height: 44px; border-radius: 12px; font-family: DM Sans, sans-serif; font-weight: 700; font-size: 14px; ' + (r === s.radius ? 'border: 1.5px solid #1E5BB8; background: #1E5BB8; color: #FFFFFF' : 'border: 1.5px solid #DCE3EE; background: #FFFFFF; color: #0F2F66')
+}));
+
+const plan = s.plan;
+const rates = { basico: 0.10, plus: 0.05, pro: 0 };
+const depF = { basico: 1, plus: 0.5, pro: 0 };
+const names = { basico: 'Básico', plus: 'Plus', pro: 'Pro' };
+const protIncluded = plan !== 'basico';
+const rental = raw.price * s.days;
+const extras = raw.extras.map((e) => {
+const on = !!s.extras[e.id];
+return {
+name: e.name,
+priceTxt: fmt(e.price),
+label: on ? 'Quitar' : 'Sumar',
+btnStyle: on
+? 'min-width: 80px; height: 44px; border-radius: 12px; border: 0; background: #1E5BB8; color: #FFFFFF; font-family: DM Sans, sans-serif; font-weight: 700; font-size: 14px'
+: 'min-width: 80px; height: 44px; border-radius: 12px; border: 0; background: #E8F0FB; color: #1E5BB8; font-family: DM Sans, sans-serif; font-weight: 700; font-size: 14px',
+toggle: () => { const x = Object.assign({}, self.state.extras); x[e.id] = !x[e.id]; self.setState({ extras: x }); }
+};
+});
+const extrasSum = raw.extras.reduce((acc, e) => acc + (s.extras[e.id] ? e.price : 0), 0);
+const fee = Math.round(rental * rates[plan]);
+const protAmt = (!protIncluded && s.prot) ? Math.round(rental * 0.05) : 0;
+const total = rental + extrasSum + fee + protAmt;
+const deposit = raw.deposit * depF[plan];
+const owner = Math.round(rental * 0.95) + extrasSum;
+const app = fee + Math.round(rental * 0.05);
+const plusSaving = Math.round(rental * 0.05) + protAmt;
+
+const startOffset = raw.today ? 0 : 1;
+const retiroTxt = raw.today ? 'Hoy, 17:00' : 'Mañana, 10:00';
+const endOffset = startOffset + s.days;
+const devolucionTxt = endOffset === 1 ? 'Mañana, 18:00' : 'En ' + endOffset + ' días, 18:00';
+
+const dayStyle = (on) => on
+? 'flex: 1; height: 46px; border-radius: 12px; border: 1.5px solid #1E5BB8; background: #1E5BB8; color: #FFFFFF; font-family: DM Sans, sans-serif; font-weight: 700; font-size: 14px'
+: 'flex: 1; height: 46px; border-radius: 12px; border: 1.5px solid #DCE3EE; background: #FFFFFF; color: #0F2F66; font-family: DM Sans, sans-serif; font-weight: 700; font-size: 14px';
+const dayOptions = [1, 2, 3].map((d) => ({ label: d === 1 ? '1 día' : d + ' días', style: dayStyle(d === s.days), pick: () => self.setState({ days: d }) }));
+
+const inExplore = ['inicio', 'detalle', 'reserva', 'listo'].indexOf(s.view) >= 0;
+const navStyle = (on) => on
+? 'height: 42px; padding: 0 16px; border: 0; border-radius: 12px; background: #E8F0FB; color: #1E5BB8; font-family: DM Sans, sans-serif; font-weight: 700; font-size: 14px'
+: 'height: 42px; padding: 0 16px; border: 0; border-radius: 12px; background: transparent; color: #0F2F66; font-family: DM Sans, sans-serif; font-weight: 500; font-size: 14px';
+const openLlave = () => self.setState({ llaveOpen: true });
+const navItems = [
+{ label: 'Explorar', style: navStyle(inExplore && !s.llaveOpen), pick: () => self.go('inicio', { llaveOpen: false }) },
+{ label: 'Llave', style: navStyle(s.llaveOpen), pick: openLlave },
+{ label: 'Mis alquileres', style: navStyle(s.view === 'perfil' && s.tab === 'alquileres' && !s.llaveOpen), pick: () => self.go('perfil', { tab: 'alquileres', llaveOpen: false }) },
+{ label: 'Membresías', style: navStyle(s.view === 'perfil' && s.tab === 'membresias' && !s.llaveOpen), pick: () => self.go('perfil', { tab: 'membresias', llaveOpen: false }) }
+];
+const mobStyle = (on) => 'display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 56px; min-height: 52px; justify-content: center; border: 0; background: transparent; font-family: DM Sans, sans-serif; font-size: 11px; font-weight: ' + (on ? '700; color: #1E5BB8' : '500; color: #55627A');
+const mobTabs = [
+{ label: 'Explorar', d: 'M3 11 12 4l9 7M5 10v10h14V10', style: mobStyle(inExplore && !s.llaveOpen), pick: () => self.go('inicio', { llaveOpen: false }) },
+{ label: 'Llave', d: 'M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.6 2.6-2.4-.6-.6-2.4z', style: mobStyle(s.llaveOpen), pick: openLlave },
+{ label: 'Alquileres', d: 'M4 4h16v16H4zM8 9h8M8 13h8M8 17h5', style: mobStyle(s.view === 'perfil' && s.tab === 'alquileres' && !s.llaveOpen), pick: () => self.go('perfil', { tab: 'alquileres', llaveOpen: false }) },
+{ label: 'Planes', d: 'M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6z', style: mobStyle(s.view === 'perfil' && s.tab === 'membresias' && !s.llaveOpen), pick: () => self.go('perfil', { tab: 'membresias', llaveOpen: false }) },
+{ label: 'Cuenta', d: 'M8 8a4 4 0 1 0 8 0a4 4 0 1 0-8 0M4 21a8 8 0 0 1 16 0', style: mobStyle(s.view === 'perfil' && (s.tab === 'cuenta' || s.tab === 'herramientas') && !s.llaveOpen), pick: () => self.go('perfil', { tab: 'cuenta', llaveOpen: false }) }
+];
+const tabStyle = (on) => on
+? 'height: 42px; padding: 0 14px; border: 0; border-radius: 12px; background: #E8F0FB; color: #1E5BB8; text-align: left; font-family: DM Sans, sans-serif; font-weight: 700; font-size: 14px'
+: 'height: 42px; padding: 0 14px; border: 0; border-radius: 12px; background: transparent; color: #0F2F66; text-align: left; font-family: DM Sans, sans-serif; font-weight: 500; font-size: 14px';
+const tabs = [
+{ id: 'cuenta', label: 'Mi cuenta' },
+{ id: 'alquileres', label: 'Mis alquileres' },
+{ id: 'membresias', label: 'Membresías' },
+{ id: 'herramientas', label: 'Mis herramientas' }
+].map((t) => ({ label: t.label, style: tabStyle(s.tab === t.id), pick: () => self.setState({ tab: t.id }) }));
+
+const kitData = [
+{ name: 'Pintar un ambiente', items: '4 ítems · escalera, rodillo, bandeja, cinta', tool: 'escalera', orange: true, d: 'M3 3h14v6H3zM17 6h3v5h-8v3M10 14h4v7h-4z' },
+{ name: 'Colgar estantes', items: '5 ítems · taladro, mechas, tarugos', tool: 'taladro', orange: false, d: 'M3 7h11v6H3zM14 9h4l3 1-3 1h-4M6 13v5a2 2 0 0 0 2 2h1v-7' },
+{ name: 'Armar un mueble', items: '3 ítems · atornillador y puntas', tool: 'atornillador', orange: true, d: 'M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.6 2.6-2.4-.6-.6-2.4z' },
+{ name: 'Destapar una cañería', items: '2 ítems · sonda y guantes', tool: 'sonda', orange: false, d: 'M12 3s6 6.5 6 10.5a6 6 0 0 1-12 0C6 9.5 12 3 12 3z' }
+];
+const kits = kitData.map((k) => ({
+name: k.name, items: k.items, d: k.d,
+img: IMG[k.tool] || '', hasImg: !!IMG[k.tool], noImg: !IMG[k.tool],
+stroke: k.orange ? '#C2560A' : '#1E5BB8',
+bubble: 'flex: none; width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: ' + (k.orange ? '#FFF1E4' : '#E8F0FB'),
+open: () => self.openTool(k.tool)
+}));
+
+const planData = [
+{ id: 'basico', name: 'Básico', price: 'Gratis', per: '', desc: 'Para alquilar de vez en cuando.', highlight: false, features: ['Alquilá y publicá herramientas', 'Protección opcional en cada alquiler', 'Fianza completa', 'Tarifa de servicio del 10%'] },
+{ id: 'plus', name: 'Plus', price: '$3.990', per: 'por mes', desc: 'Para quien hace arreglos seguido.', highlight: true, features: ['Protección incluida hasta $150.000 por alquiler', 'Fianza 50% más baja', 'Tarifa de servicio del 5%', 'Retiro prioritario en ferreterías'] },
+{ id: 'pro', name: 'Pro', price: '$7.990', per: 'por mes', desc: 'Para proyectos grandes y mudanzas.', highlight: false, features: ['Protección incluida hasta $400.000 por alquiler', 'Sin fianza', 'Sin tarifa de servicio', '20% de descuento en un kit por mes'] }
+];
+const plans = planData.map((p) => {
+const current = p.id === plan;
+return {
+name: p.name, price: p.price, per: p.per, desc: p.desc, highlight: p.highlight,
+features: p.features.map((t) => ({ t: t })),
+cardStyle: 'display: flex; flex-direction: column; gap: 10px; padding: 20px; background: #FFFFFF; border-radius: 20px; border: ' + (p.highlight ? '2px solid #F28C28' : '1.5px solid #E6EBF2'),
+btnLabel: current ? 'Tu plan actual' : (p.id === 'basico' ? 'Volver a Básico' : 'Elegir ' + p.name),
+btnStyle: current
+? 'height: 48px; border-radius: 14px; border: 1.5px solid #DCE3EE; background: #F4F6FA; color: #55627A; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 15px'
+: (p.highlight
+? 'height: 48px; border-radius: 14px; border: 0; background: #F28C28; color: #0F2F66; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 15px'
+: 'height: 48px; border-radius: 14px; border: 1.5px solid #1E5BB8; background: #FFFFFF; color: #1E5BB8; font-family: Montserrat, sans-serif; font-weight: 800; font-size: 15px'),
+choose: () => { if (!current) self.setState({ pendingPlan: p.id, planMsg: '' }); }
+};
+});
+
+const rank = { basico: 0, plus: 1, pro: 2 };
+let pc = { title: '', from: '', fromPrice: '', to: '', toPrice: '', listTitle: '', items: [], mark: '', markStyle: '', note: '', cta: '', ctaBg: '#F28C28', ctaColor: '#0F2F66' };
+if (s.pendingPlan) {
+const cur = planData.find((p) => p.id === plan);
+const nxt = planData.find((p) => p.id === s.pendingPlan);
+const up = rank[nxt.id] > rank[cur.id];
+const markSt = 'flex: none; width: 20px; height: 20px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; ' + (rank[nxt.id] > rank[cur.id] ? 'background: #E8F0FB; color: #1E5BB8' : 'background: #FDECEA; color: #B3261E');
+const priceOf = (p) => p.id === 'basico' ? 'Gratis' : p.price + ' por mes';
+pc = {
+title: up ? '¿Pasar al plan ' + nxt.name + '?' : '¿Cambiar al plan ' + nxt.name + '?',
+from: cur.name, fromPrice: priceOf(cur),
+to: nxt.name, toPrice: priceOf(nxt),
+listTitle: up ? 'Qué ganás' : 'Qué dejás de tener',
+items: (up ? nxt.features : cur.features).map((t) => ({ t: t, mark: up ? '+' : '–', markStyle: markSt })),
+mark: '',
+markStyle: 'flex: none; width: 20px; height: 20px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; ' + (up ? 'background: #E8F0FB; color: #1E5BB8' : 'background: #FDECEA; color: #B3261E'),
+note: up
+? 'Se cobran ' + nxt.price + ' hoy con Mercado Pago y se renueva todos los meses. Podés cancelar cuando quieras, sin costo.'
+: 'Tu plan ' + cur.name + ' sigue activo hasta el final del mes que ya pagaste. Después pasás a ' + nxt.name + '.',
+cta: up ? 'Confirmar y pagar ' + nxt.price : 'Sí, cambiar a ' + nxt.name,
+ctaBg: up ? '#F28C28' : '#1E5BB8',
+ctaColor: up ? '#0F2F66' : '#FFFFFF'
+};
+}
+
+const rentals = s.rentals.map((r) => Object.assign({}, r, {
+img: IMG[r.tool] || '', hasImg: !!IMG[r.tool], noImg: !IMG[r.tool],
+pillStyle: r.active
+? 'font-size: 13px; font-weight: 700; color: #A84A00; background: #FFF1E4; padding: 6px 12px; border-radius: 12px'
+: 'font-size: 13px; font-weight: 700; color: #1E5BB8; background: #E8F0FB; padding: 6px 12px; border-radius: 12px'
+}));
+
+const ld = this.llaveData();
+const chipList = ['¿Cómo pinto una pared?', 'Se me tapó la pileta', 'Quiero colgar un estante', 'Tengo que armar un mueble'];
+const chips = chipList.map((label) => ({ label: label, ask: () => self.ask(label) }));
+const messages = s.chat.map((m, idx) => {
+if (m.from === 'user') return { isUser: true, isText: false, isPlan: false, text: m.text };
+if (!m.plan) return { isUser: false, isText: true, isPlan: false, text: m.text };
+const sc = ld[m.plan];
+let missing = 0;
+const items = sc.items.map((it) => {
+const key = idx + '-' + it.id;
+const owned = !!s.have[key];
+if (!owned) missing += it.price;
+return {
+name: it.name,
+where: it.where,
+tag: it.rent ? 'Alquilar' : 'Comprar',
+tagStyle: it.rent
+? 'font-size: 11px; font-weight: 700; color: #FFFFFF; background: #1E5BB8; padding: 2px 8px; border-radius: 8px'
+: 'font-size: 11px; font-weight: 700; color: #A84A00; background: #FFF1E4; padding: 2px 8px; border-radius: 8px',
+nameStyle: 'font-size: 14px; font-weight: 700; ' + (owned ? 'text-decoration: line-through; color: #55627A' : 'color: #0F2F66'),
+rowStyle: 'display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 12px; border: 1.5px solid #EEF1F6; background: ' + (owned ? '#F4F6FA' : '#FFFFFF'),
+priceTxt: owned ? 'Ya lo tenés' : fmt(it.price),
+owned: owned,
+toggleLabel: owned ? 'Marcar ' + it.name + ' como que no lo tengo' : 'Marcar ' + it.name + ' como que ya lo tengo',
+checkStyle: 'flex: none; width: 30px; height: 30px; border-radius: 15px; display: flex; align-items: center; justify-content: center; padding: 0; ' + (owned ? 'border: 0; background: #1E5BB8; color: #FFFFFF' : 'border: 1.5px solid #B9C3D3; background: #FFFFFF; color: transparent'),
+toggle: () => { const h = Object.assign({}, self.state.have); h[key] = !h[key]; self.setState({ have: h }); }
+};
+});
+return {
+isUser: false, isText: false, isPlan: true,
+title: sc.title, intro: sc.intro, tip: sc.tip, ctaLabel: sc.ctaLabel,
+items: items,
+steps: sc.steps.map((t) => ({ t: t })),
+totalTxt: fmt(missing),
+cta: () => {
+const ex = {};
+sc.items.forEach((it) => { if (it.extra && !self.state.have[idx + '-' + it.id]) ex[it.extra] = true; });
+self.go('detalle', { toolId: sc.tool, days: sc.days, extras: ex, llaveOpen: false });
+}
+};
+});
+
+const normT = (x) => self.normUser(x);
+const q = normT(s.query);
+const words = q.split(/\s+/).filter((w) => w.length >= 3);
+const ldAll = self.llaveData();
+const wordHit = (t) => {
+const hay = normT(t.short + ' ' + t.name + ' ' + t.use + ' ' + t.owner);
+return words.length ? words.some((w) => hay.indexOf(w) >= 0 || hay.indexOf(w.slice(0, -1)) >= 0) : hay.indexOf(q) >= 0;
+};
+const directHits = q ? tools.filter((t) => normT(t.short + ' ' + t.name).split(/\s+/).some((x) => words.some((w) => x.indexOf(w) === 0 || w.indexOf(x) === 0 && x.length >= 4))) : [];
+const taskKey = q && directHits.length === 0 ? self.matchKey(q) : null;
+const results = q ? tools.filter((t) => wordHit(t) || (taskKey && ldAll[taskKey].tool === t.id)) : [];
+const sugList = ['Taladro', 'Escalera', 'Hidrolavadora', 'Pintar una pared'];
+
+const cats = self.catsData();
+const pub = s.pub;
+const pcat = cats.find((c) => c.id === pub.cat) || cats[0];
+const priceNum = parseInt(String(pub.price || '').replace(/[^0-9]/g, ''), 10) || 0;
+const chipSt = (on) => 'height: 42px; padding: 0 16px; border-radius: 21px; font-family: DM Sans, sans-serif; font-weight: 700; font-size: 14px; ' + (on ? 'border: 1.5px solid #1E5BB8; background: #1E5BB8; color: #FFFFFF' : 'border: 1.5px solid #DCE3EE; background: #F4F6FA; color: #0F2F66');
+const pickSt = (on) => 'display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 12px 14px; border-radius: 14px; text-align: left; font-family: DM Sans, sans-serif; color: #0F2F66; ' + (on ? 'border: 2px solid #1E5BB8; background: #EAF2FD' : 'border: 1.5px solid #DCE3EE; background: #FFFFFF');
+const myTools = s.myTools.map((m) => {
+const c = cats.find((x) => x.id === m.cat) || cats[5];
+return Object.assign({}, m, {
+d: c.d,
+stroke: c.blue ? '#1E5BB8' : '#C2560A',
+bubble: 'flex: none; width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: ' + (c.blue ? '#E8F0FB' : '#FFF1E4'),
+pillStyle: 'font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 10px; ' + (m.live ? 'color: #1D5E33; background: #E6F4EA' : 'color: #A84A00; background: #FFF1E4')
+});
+});
+
+return {
+query: s.query,
+hasQuery: !!q,
+isBuscar: s.view === 'inicio' && !!q,
+isInicioPlain: s.view === 'inicio' && !q,
+results: results,
+hasResults: results.length > 0,
+noResults: !!q && results.length === 0,
+resultsTxt: results.length === 1 ? '1 herramienta cerca tuyo' : results.length + ' herramientas cerca tuyo',
+hasTaskHit: !!taskKey,
+taskTitleLow: taskKey ? ldAll[taskKey].title.toLowerCase() : '',
+askTask: () => { if (taskKey) self.ask(s.query); },
+askQuery: () => self.ask(s.query),
+suggestions: sugList.map((l) => ({ label: l, pick: () => self.setState({ query: l }) })),
+onSearch: (e) => { const v = e && e.target ? e.target.value : ''; self.setState(v.trim() ? { query: v, view: 'inicio' } : { query: v }); },
+searchKey: (e) => { if (e && e.key === 'Enter') { if (e.preventDefault) e.preventDefault(); const v = self.domVal('buscar-web', self.state.query); self.go('inicio', { query: v, llaveOpen: false }); } },
+clearSearch: () => self.setState({ query: '' }),
+isPublicar: s.view === 'publicar',
+goPublicar: () => self.go('publicar', { llaveOpen: false, pubError: '' }),
+myTools: myTools,
+hasPubMsg: !!s.pubMsg,
+pubMsg: s.pubMsg,
+pubCats: cats.map((c) => ({ label: c.label, on: c.id === pub.cat, style: chipSt(c.id === pub.cat), pick: () => self.setPub({ cat: c.id }) })),
+pubConds: [['nueva', 'Como nueva'], ['buen', 'Buen estado'], ['uso', 'Con uso']].map((c) => ({ label: c[1], on: c[0] === pub.cond, style: chipSt(c[0] === pub.cond), pick: () => self.setPub({ cond: c[0] }) })),
+pubPickups: [['ferreteria', 'En una ferretería cercana (recomendado)', 'Ferretería La Esquina, a 350 m: la revisa, la entrega y la recibe por vos.'], ['casa', 'En mi casa', 'Coordinás el horario con quien la alquila.']].map((c) => ({ label: c[1], note: c[2], on: c[0] === pub.pickup, style: pickSt(c[0] === pub.pickup), pick: () => self.setPub({ pickup: c[0] }) })),
+pubPhotos: Array.from({ length: pub.photos }, (_, i) => ({ n: i + 1 })),
+addPhoto: () => { if (self.state.pub.photos < 4) self.setPub({ photos: self.state.pub.photos + 1 }); },
+pubName: pub.name,
+pubPrice: pub.price,
+pubDesc: pub.desc,
+onPubName: (e) => self.setPub({ name: e && e.target ? e.target.value : '' }),
+onPubPrice: (e) => self.setPub({ price: e && e.target ? e.target.value : '' }),
+onPubDesc: (e) => self.setPub({ desc: e && e.target ? e.target.value : '' }),
+pubNameBorder: s.pubError && !pub.name.trim() ? '#D9534F' : '#DCE3EE',
+pubPriceBorder: s.pubError && !priceNum ? '#D9534F' : '#DCE3EE',
+pubSuggest: 'En tu zona, una herramienta así se alquila entre ' + fmt(pcat.sug[0]) + ' y ' + fmt(pcat.sug[1]) + ' por día.',
+pubEarn: priceNum ? fmt(Math.round(priceNum * 0.95)) : '$0',
+pubDeposit: priceNum ? fmt(priceNum * 7) : 'unas 7 veces el precio por día',
+pubError: !!s.pubError,
+pubErrorTxt: s.pubError,
+pubPreview: {
+name: pub.name.trim() || 'Nombre de tu herramienta',
+where: pub.pickup === 'ferreteria' ? 'Ferretería La Esquina · 350 m' : 'Nicolás, vecino · tu casa',
+price: priceNum ? fmt(priceNum) : '$—',
+d: pcat.d,
+stroke: pcat.blue ? '#1E5BB8' : '#C2560A',
+panel: 'width: 100%; height: 140px; display: flex; align-items: center; justify-content: center; background: ' + (pcat.blue ? '#E8F0FB' : '#FFF1E4')
+},
+doPublish: () => self.publish(),
+showLogin: !s.loggedIn,
+loggedIn: s.loggedIn,
+loginUser: s.loginUser,
+loginPass: s.loginPass,
+loginError: s.loginError,
+loginBorder: s.loginError ? '#D9534F' : '#DCE3EE',
+pwType: s.showPw ? 'text' : 'password',
+pwBtn: s.showPw ? 'Ocultar' : 'Ver',
+togglePw: () => self.setState({ showPw: !self.state.showPw }),
+onLoginUser: (e) => self.setState({ loginUser: e && e.target ? e.target.value : '', loginError: false }),
+onLoginPass: (e) => self.setState({ loginPass: e && e.target ? e.target.value : '', loginError: false }),
+loginKey: (e) => { if (e && e.key === 'Enter') { if (e.preventDefault) e.preventDefault(); self.tryLogin(e); } },
+doLogin: (e) => self.tryLogin(e),
+draftKey: (e) => { if (e && e.key === 'Enter') { if (e.preventDefault) e.preventDefault(); self.ask(self.state.draft); } },
+logout: () => self.go('inicio', { loggedIn: false, loginUser: '', loginPass: '', loginError: false, llaveOpen: false, mapOpen: false, pendingPlan: null }),
+locName: locObj.name + ', CABA',
+nearTools: nearTools,
+nearTxt: nearTxt,
+mapOpen: s.mapOpen,
+barrios: barrios,
+radiusOptions: radiusOptions,
+mapPickName: pickObj.name,
+openMap: () => self.setState({ mapOpen: true, mapPick: self.state.loc, located: false, llaveOpen: false }),
+closeMap: () => self.setState({ mapOpen: false }),
+confirmMap: () => self.setState({ mapOpen: false, loc: self.state.mapPick }),
+locateLabel: s.locating ? 'Buscando dónde estás…' : 'Usar mi ubicación actual',
+locateNote: s.located ? 'Te encontramos en ' + pickObj.name + '.' : 'Simulación: en la app real usa el GPS del celular.',
+locateMe: () => {
+if (self.state.locating) return;
+self.setState({ locating: true });
+if (self._timer) clearTimeout(self._timer);
+self._timer = setTimeout(() => self.setState({ locating: false, located: true, mapPick: 'palermo' }), 900);
+},
+planModal: !!s.pendingPlan,
+pc: pc,
+cancelPlan: () => self.setState({ pendingPlan: null }),
+confirmPlan: () => {
+const np = self.state.pendingPlan;
+if (!np) return;
+const nm = names[np];
+self.setState({ plan: np, pendingPlan: null, planMsg: np === 'basico' ? 'Listo, pasás al plan Básico al terminar el mes.' : 'Listo, ya tenés el plan ' + nm + '. Te mandamos el comprobante por mail.' });
+},
+hasPlanMsg: !!s.planMsg,
+planMsg: s.planMsg,
+extrasCountTxt: extrasSum > 0 ? 'Sumaste ' + raw.extras.filter((e) => s.extras[e.id]).length + ' · ' + fmt(extrasSum) : 'Consumibles de la ferretería',
+feeProtTxt: (fee === 0 ? 'sin tarifa de servicio' : 'tarifa ' + fmt(fee)) + (protAmt > 0 ? ' y protección ' + fmt(protAmt) : (protIncluded ? ' · protección incluida' : '')),
+isInicio: s.view === 'inicio',
+isDetalle: s.view === 'detalle',
+isReserva: s.view === 'reserva',
+isListo: s.view === 'listo',
+isPerfil: s.view === 'perfil',
+tabCuenta: s.tab === 'cuenta',
+tabAlquileres: s.tab === 'alquileres',
+tabMembresias: s.tab === 'membresias',
+tabHerramientas: s.tab === 'herramientas',
+navItems: navItems,
+mobTabs: mobTabs,
+tabs: tabs,
+kits: kits,
+tools: tools,
+tool: tool,
+extras: extras,
+dayOptions: dayOptions,
+plans: plans,
+rentals: rentals,
+rentalCount: String(s.rentals.length),
+planName: names[plan],
+isBasico: plan === 'basico',
+protIncluded: protIncluded,
+prot: s.prot,
+hasExtras: extrasSum > 0,
+daysLabel: s.days === 1 ? '1 día' : s.days + ' días',
+retiroTxt: retiroTxt,
+devolucionTxt: devolucionTxt,
+retiroLow: retiroTxt.toLowerCase(),
+devolucionLow: devolucionTxt.toLowerCase(),
+rentalTxt: fmt(rental),
+extrasTxt: fmt(extrasSum),
+ratePct: Math.round(rates[plan] * 100) + '%',
+feeTxt: fee === 0 ? 'Sin cargo' : fmt(fee),
+protTxt: s.prot ? fmt(Math.round(rental * 0.05)) : 'No incluida',
+totalTxt: fmt(total),
+ownerTxt: fmt(owner),
+appTxt: fmt(app),
+protFundTxt: protIncluded ? 'Cubre tu plan' : fmt(protAmt),
+plusSavingTxt: fmt(plusSaving),
+depositTitle: deposit > 0 ? 'Fianza retenida: ' + fmt(deposit) : 'Sin fianza con tu plan Pro',
+depositNote: deposit > 0 ? 'Se reserva en tu medio de pago y se libera cuando devolvés la herramienta en buen estado. No es un cobro.' : 'Tu membresía Pro reemplaza la fianza en este alquiler.',
+depositShort: deposit > 0 ? 'Fianza de ' + fmt(deposit) + ' retenida' : 'Sin fianza',
+llaveOpen: s.llaveOpen,
+showFab: !s.llaveOpen,
+typing: s.typing,
+draft: s.draft,
+chips: chips,
+messages: messages,
+bodyRef: (el) => { self._body = el; },
+openLlave: openLlave,
+closeLlave: () => self.setState({ llaveOpen: false }),
+onDraft: (e) => self.setState({ draft: e && e.target ? e.target.value : '' }),
+send: (e) => { if (e && e.preventDefault) e.preventDefault(); self.ask(self.state.draft); },
+goHome: () => self.go('inicio', { llaveOpen: false }),
+goDetalle: () => self.go('detalle'),
+goReserva: () => self.go('reserva'),
+goCuenta: () => self.go('perfil', { tab: 'cuenta', llaveOpen: false }),
+goAlquileres: () => self.openPerfil('alquileres'),
+goMembresias: () => self.go('perfil', { tab: 'membresias', llaveOpen: false }),
+goHerramientas: () => self.openPerfil('herramientas'),
+toggleProt: () => self.setState({ prot: !self.state.prot }),
+pay: () => {
+const nuevo = { id: 'r' + Date.now(), tool: raw.id, name: raw.short, owner: raw.owner, when: 'retiro ' + retiroTxt.toLowerCase() + ', devolución ' + devolucionTxt.toLowerCase(), status: 'Activo', active: true, d: raw.d };
+self.go('listo', { rentals: [nuevo].concat(self.state.rentals) });
+}
+};
+}
+}
+window.__boot(Component);
+</script>
+</body>
+</html>
